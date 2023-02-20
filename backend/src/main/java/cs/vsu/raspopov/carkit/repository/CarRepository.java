@@ -1,4 +1,7 @@
 package cs.vsu.raspopov.carkit.repository;
 
-public interface CarRepository {
+import cs.vsu.raspopov.carkit.entity.Car;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CarRepository extends CrudRepository<Car, Integer> {
 }

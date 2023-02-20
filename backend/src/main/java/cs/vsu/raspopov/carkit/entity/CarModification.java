@@ -6,19 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "car")
-public class Car {
-
+@Table(name = "car_modification")
+public class CarModification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String brand;
-    private String model;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
-    private List<CarModification> modifications;
+    private String modification;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+    @ManyToMany(mappedBy = "carModifications")
+    private List<Detail> details;
 }
