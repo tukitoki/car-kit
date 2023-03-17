@@ -1,26 +1,24 @@
 package cs.vsu.raspopov.carkit.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "car_modification")
-public class CarModification {
+@Table(name = "dimension")
+public class Dimension {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String modification;
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    private Car car;
-    @ManyToMany(mappedBy = "carModifications")
+    private Integer id;
+    private String dimensionName;
+    @OneToMany(mappedBy = "dimension", cascade = CascadeType.ALL)
     private List<Detail> details;
 }

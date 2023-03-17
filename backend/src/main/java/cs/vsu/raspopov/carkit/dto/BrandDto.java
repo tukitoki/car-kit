@@ -1,20 +1,20 @@
 package cs.vsu.raspopov.carkit.dto;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarDto {
+public class BrandDto {
 
-    private BrandDto brandDto;
-    private ModelDto modelDto;
-    private ModificationDto modificationDto;
-    private BigDecimal mileage;
+    private Integer id;
+    private String name;
+    private List<ModelDto> models;
 }
