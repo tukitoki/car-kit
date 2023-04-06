@@ -24,6 +24,12 @@ public class Brand {
     @NotBlank(message = "Brand name should not be blank")
     private String name;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Model> models;
 }
+
+
+
+
+
+

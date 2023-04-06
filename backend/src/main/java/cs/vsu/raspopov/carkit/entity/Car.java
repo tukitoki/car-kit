@@ -1,30 +1,34 @@
 package cs.vsu.raspopov.carkit.entity;
 
-import cs.vsu.raspopov.carkit.entity.enums.DetailType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "detail_mileage_change")
-public class DetailMileageChange {
+@Table(name = "car")
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private DetailType detailType;
+    @OneToOne
+    private Brand brand;
 
-    @ManyToOne
-    @JoinColumn(name = "modification_id")
+    @OneToOne
+    private Model model;
+
+    @OneToOne
     private Modification modification;
 
-    private Integer mileage;
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MaintenanceWork> maintenanceWork;
 }

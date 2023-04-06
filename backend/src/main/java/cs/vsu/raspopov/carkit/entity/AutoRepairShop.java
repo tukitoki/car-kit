@@ -8,12 +8,13 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@AllArgsConstructor
 @Table(name = "auto_repair_shop")
+@Entity
 public class AutoRepairShop {
 
     @Id
@@ -31,3 +32,5 @@ public class AutoRepairShop {
     @OneToMany(mappedBy = "autoRepairShop")
     private List<Request> requests;
 }
+
+

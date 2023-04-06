@@ -30,4 +30,6 @@ public class Request {
     private AutoRepairShop autoRepairShop;
     @ManyToMany
     private List<Detail> details;
+    @ManyToMany
+    private List<MaintenanceWork> maintenanceWork;
 }

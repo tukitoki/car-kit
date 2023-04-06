@@ -7,24 +7,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+import java.sql.Time;
+
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "maintenance_work")
 @Entity
-@Table(name = "detail_mileage_change")
-public class DetailMileageChange {
+public class MaintenanceWork {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
     private DetailType detailType;
 
     @ManyToOne
-    @JoinColumn(name = "modification_id")
-    private Modification modification;
+    private Dimension dimension;
 
-    private Integer mileage;
+    private Time timeToChange;
+
+    @ManyToOne
+    private Car car;
 }

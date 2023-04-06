@@ -27,7 +27,6 @@ public class Detail {
     private String description;
     private BigDecimal price;
     private String producer;
-    private Timestamp timeToChange;
     private Timestamp timeToDelivery;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "dimension_id")
