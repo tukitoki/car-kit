@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.sql.Time;
 
@@ -13,6 +14,7 @@ import java.sql.Time;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "maintenance_work")
 @Entity
 public class MaintenanceWork {
@@ -21,6 +23,7 @@ public class MaintenanceWork {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private DetailType detailType;
 
     @ManyToOne

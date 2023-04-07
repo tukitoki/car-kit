@@ -21,15 +21,17 @@ public class AutoRepairShop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
+
     private String address;
 
-    @OneToMany(mappedBy = "autoRepairShop")
+    @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts;
 
-    @OneToMany(mappedBy = "autoRepairShop")
+    @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Schedule> schedule;
 
-    @OneToMany(mappedBy = "autoRepairShop")
+    @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Request> requests;
 }
 

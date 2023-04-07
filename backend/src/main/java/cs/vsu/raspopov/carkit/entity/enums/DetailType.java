@@ -20,4 +20,10 @@ public enum DetailType {
     MIDDLE_SHOCK_ABSORBER,
     REAR_SHOCK_ABSORBER,
     FRONT_SHOCK_ABSORBER_SUPPORT
+    ;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

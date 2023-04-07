@@ -1,18 +1,21 @@
 package cs.vsu.raspopov.carkit.entity;
 
+import cs.vsu.raspopov.carkit.entity.enums.DayType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "schedule")
 public class Schedule {
@@ -21,11 +24,11 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDate dayOfWeek;
+    private LocalDate date;
 
-    private Timestamp startWorkTime;
+    private Time startWorkTime;
 
-    private Timestamp endWorkTime;
+    private Time endWorkTime;
 
     @ManyToOne()
     @JoinColumn(name = "auto_repair_shop_id")
