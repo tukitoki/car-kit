@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface ModelRepo extends CrudRepository<Model, Integer> {
+public interface ModelRepo extends CrudRepository<Model, Long> {
 
     Optional<Model> findByName(String name);
 }

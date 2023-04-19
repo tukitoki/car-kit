@@ -1,8 +1,10 @@
 package cs.vsu.raspopov.carkit.service.impl;
 
-import cs.vsu.raspopov.carkit.dto.ModificationDtoRequest;
-import cs.vsu.raspopov.carkit.dto.car.CarDtoRequest;
+import cs.vsu.raspopov.carkit.dto.CarDto;
+import cs.vsu.raspopov.carkit.dto.ModificationDto;
+import cs.vsu.raspopov.carkit.dto.car.BrandDto;
 import cs.vsu.raspopov.carkit.dto.car.CarDtoResponse;
+import cs.vsu.raspopov.carkit.dto.car.response.CarAddResponse;
 import cs.vsu.raspopov.carkit.entity.Brand;
 import cs.vsu.raspopov.carkit.entity.Model;
 import cs.vsu.raspopov.carkit.entity.Modification;
@@ -26,9 +28,9 @@ public class CarServiceImpl implements CarService {
     private final ModificationRepo modificationRepo;
 
     @Override
-    public void saveCar(CarDtoRequest dto) {
+    public void saveCar(CarDto dto) {
         var brand = getBrandByName(dto.getBrand());
-        var model = getModelByName(dto.getModelName());
+        var model = getModelByName(dto.getModel());
         var modification = getModification(dto.getModificationDto());
 
         brand.getModels().add(model);
@@ -38,6 +40,22 @@ public class CarServiceImpl implements CarService {
 
         var car = carMapper.toEntity(brand, model, modification);
         carRepo.save(car);
+    }
+
+    @Override
+    public CarAddResponse showSaveCar() {
+        ArrayList<BrandDto> brandDtos = new ArrayList<>();
+        brandRepo.findAll().forEach(brand -> {
+            brandDtos.add(BrandDto.builder()
+                    .brand(brand.getName())
+                    .models(brand.getModels().stream()
+                            .map(Model::getName)
+                            .toList())
+                    .build());
+        });
+        return CarAddResponse.builder()
+                .brandDtos(brandDtos)
+                .build();
     }
 
     @Override
@@ -61,7 +79,7 @@ public class CarServiceImpl implements CarService {
                 .build());
     }
 
-    private Modification getModification(ModificationDtoRequest dto) {
+    private Modification getModification(ModificationDto dto) {
         var optionalModification = modificationRepo.findByNameAndEngineModelAndYearFromAndYearTo(dto.getName(),
                 dto.getEngineModel(), dto.getYearFrom(), dto.getYearTo());
         return optionalModification.orElseGet(() -> Modification.builder()

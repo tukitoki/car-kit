@@ -2,6 +2,7 @@ package cs.vsu.raspopov.carkit.entity;
 
 import cs.vsu.raspopov.carkit.entity.enums.DayType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,18 @@ import java.util.List;
 @Table(name = "request")
 public class Request {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private DayType dayType;
+    @NotNull
     private LocalDate date;
+    @NotNull
     private Time startTime;
+    @NotNull
     private Time endTime;
     @ManyToOne()
     @JoinColumn(name = "auto_repair_shop_id")

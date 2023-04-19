@@ -24,7 +24,7 @@ public class ScheduleServiceImpl {
     private final ScheduleRepo scheduleRepo;
     private final RequestRepo requestRepo;
 
-    public Schedule getSchedule(Integer repairShopId) {
+    public Schedule getSchedule(Long repairShopId) {
         var shop = autoRepairShopRepo.findById(repairShopId)
                 .orElseThrow(() -> new NoSuchElementException("fdf"));
 
@@ -42,31 +42,13 @@ public class ScheduleServiceImpl {
             }
         });
 
-        shop = autoRepairShopRepo.findById(repairShopId)
-                .orElseThrow(() -> new NoSuchElementException("fdf"));
-        List<ScheduleShowDtoResponse> scheduleDtos = new ArrayList<>();
-        for (var schedule : shop.getSchedule()) {
-            List<Request> requests = getRequestsByDate(shop, currDate);
-            if (requests.isEmpty()) {
-                scheduleDtos.
-                continue;
-            }
 
-        }
         return null;
     }
 
     private ScheduleShowDtoResponse fillScheduleOnDay(List<Request> requests, LocalDate date,
                                                       Time startWork, Time endWork) {
-        var scheduleShowDto = ScheduleShowDtoResponse.builder()
-                .date(date)
-                .availableTime(new ArrayList<>())
-                .build();
-        if (requests.isEmpty()) {
-            while (startWork.before(endWork)) {
-                startWork = new Time(startWork );
-            }
-        }
+        return null;
     }
 
     private List<Request> getRequestsByDate(AutoRepairShop shop, LocalDate date) {

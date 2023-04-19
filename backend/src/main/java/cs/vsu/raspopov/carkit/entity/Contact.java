@@ -1,6 +1,7 @@
 package cs.vsu.raspopov.carkit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,12 @@ import lombok.Setter;
 @Table(name = "contact")
 public class Contact {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private Long id;
+    @NotNull
     private String contact;
-
     @ManyToOne()
     @JoinColumn(name = "auto_repair_shop_id")
     private AutoRepairShop autoRepairShop;

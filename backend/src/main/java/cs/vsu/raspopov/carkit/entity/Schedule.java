@@ -2,6 +2,7 @@ package cs.vsu.raspopov.carkit.entity;
 
 import cs.vsu.raspopov.carkit.entity.enums.DayType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,14 +21,15 @@ import java.time.LocalDate;
 @Table(name = "schedule")
 public class Schedule {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private Long id;
+    @NotNull
     private LocalDate date;
-
+    @NotNull
     private Time startWorkTime;
-
+    @NotNull
     private Time endWorkTime;
 
     @ManyToOne()

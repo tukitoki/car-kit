@@ -1,38 +1,47 @@
 package cs.vsu.raspopov.carkit.entity;
 
-import cs.vsu.raspopov.carkit.entity.enums.DetailType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "detail")
 public class Detail {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "detail+id")
+    private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String description;
+    @NotNull
+    @Positive
     private BigDecimal price;
+    @NotNull
     private String producer;
+    @NotNull
     private Timestamp timeToDelivery;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "dimension_id")
     private Dimension dimension;
-    @ManyToMany
-    private List<Replacement> replacements;
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "detail_id")
     private DetailType detailType;
+    @ManyToMany(mappedBy = "details")
+    private Set<Modification> modifications;
 }

@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface BrandRepo extends CrudRepository<Brand, Integer> {
+public interface BrandRepo extends CrudRepository<Brand, Long> {
 
     Optional<Brand> findByName(String name);
 }

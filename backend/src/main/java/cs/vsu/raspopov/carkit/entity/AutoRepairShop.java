@@ -1,6 +1,7 @@
 package cs.vsu.raspopov.carkit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,12 +18,15 @@ import java.util.List;
 @Entity
 public class AutoRepairShop {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String address;
 
     @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)

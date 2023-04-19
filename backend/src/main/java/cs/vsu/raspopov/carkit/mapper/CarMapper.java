@@ -1,6 +1,5 @@
 package cs.vsu.raspopov.carkit.mapper;
 
-import cs.vsu.raspopov.carkit.dto.car.CarDtoRequest;
 import cs.vsu.raspopov.carkit.entity.Brand;
 import cs.vsu.raspopov.carkit.entity.Car;
 import cs.vsu.raspopov.carkit.entity.Model;

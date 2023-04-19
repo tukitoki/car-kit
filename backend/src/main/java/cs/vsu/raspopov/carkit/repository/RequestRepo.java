@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface RequestRepo extends CrudRepository<Request, Integer> {
+public interface RequestRepo extends CrudRepository<Request, Long> {
 
     Optional<Request> findByAutoRepairShopAndDate(AutoRepairShop autoRepairShop, LocalDate date);
 }

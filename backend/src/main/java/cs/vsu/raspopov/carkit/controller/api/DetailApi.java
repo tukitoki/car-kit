@@ -1,18 +1,20 @@
 package cs.vsu.raspopov.carkit.controller.api;
 
-import cs.vsu.raspopov.carkit.dto.detail.DetailDtoRequest;
-import cs.vsu.raspopov.carkit.dto.detail.DetailDtoResponse;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.ReplacementDetailDtoResponse;
+import cs.vsu.raspopov.carkit.dto.detail.response.DetailAddResponse;
 
 import java.util.List;
 
 public interface DetailApi {
 
-    void saveDetail(DetailDtoRequest dto);
+    void saveDetail(DetailDto dto);
 
-    void deleteDetail(DetailDtoRequest dto);
+    DetailAddResponse showSaveDetail();
 
-    DetailDtoResponse getDtoById(Integer id);
+    void deleteDetail(DetailDto dto);
 
-    List<ReplacementDetailDtoResponse> getDetailReplacement(Integer id);
+    DetailDto getById(Long id);
+
+    List<ReplacementDetailDtoResponse> getDetailReplacements(Long id);
 }

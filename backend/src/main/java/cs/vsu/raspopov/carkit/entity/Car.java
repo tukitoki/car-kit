@@ -1,6 +1,7 @@
 package cs.vsu.raspopov.carkit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,22 +19,21 @@ import java.util.List;
 @Table(name = "car")
 public class Car {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private Brand brand;
-
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "model_id")
     private Model model;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "modification_id")
     private Modification modification;
-
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MaintenanceWork> maintenanceWork;
 }

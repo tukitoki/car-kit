@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Date;
 
 @Getter
-public class ModificationDtoRequest {
+public class ModificationDto {
 
     private String name;
     private String engineModel;

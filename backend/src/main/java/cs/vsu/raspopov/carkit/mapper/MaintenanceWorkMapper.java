@@ -11,7 +11,7 @@ public class MaintenanceWorkMapper {
 
     public MaintenanceWork toEntity(MaintenanceWorkDto dto, Dimension dimension, Car car) {
         return MaintenanceWork.builder()
-                .detailType(dto.getDetailType())
+                .detailEnum(dto.getDetailEnum())
                 .dimension(dimension)
                 .timeToChange(dto.getTimeToChange())
                 .car(car)

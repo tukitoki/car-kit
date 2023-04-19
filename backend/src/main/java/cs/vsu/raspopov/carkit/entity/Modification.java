@@ -2,18 +2,16 @@ package cs.vsu.raspopov.carkit.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,15 +24,22 @@ public class Modification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @NotBlank(message = "Brand name should not be blank")
+    @Column(name = "car_id")
+    private Long id;
+    @NotNull
     private String name;
-    @NotBlank(message = "Engine model should not be blank")
+    @NotNull
     private String engineModel;
+    @NotNull
     private Date yearFrom;
+    @NotNull
     private Date yearTo;
-    @ManyToMany
-    private List<Detail> details;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "car_detail",
+            joinColumns = @JoinColumn(name = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "detail_id"))
+    private Set<Detail> details;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;

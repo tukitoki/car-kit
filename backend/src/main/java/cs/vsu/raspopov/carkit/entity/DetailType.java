@@ -3,31 +3,35 @@ package cs.vsu.raspopov.carkit.entity;
 import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "detail_types")
 @Entity
-@Table(name = "detail_mileage_change")
-public class DetailMileageChange {
+public class DetailType {
 
     @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
+    @Column(name = "name", nullable = false)
+    @ColumnTransformer(read = "UPPER(name)", write = "LOWER(?)")
     @Enumerated(EnumType.STRING)
-    private DetailEnum detailEnum;
-    @NotNull
-    @Positive
-    private Integer mileage;
-    @ManyToOne
-    @JoinColumn(name = "modification_id")
-    private Modification modification;
+    private DetailEnum name;
+
+    public DetailType(DetailEnum name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name.toString();
+    }
 }

@@ -2,6 +2,7 @@ package cs.vsu.raspopov.carkit.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,13 +20,14 @@ import java.util.List;
 @Table(name = "model")
 public class Model {
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @NotBlank(message = "Brand name should not be blank")
+    private Long id;
+    @NotNull
     private String name;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;

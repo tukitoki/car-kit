@@ -1,6 +1,6 @@
 package cs.vsu.raspopov.carkit.entity.enums;
 
-public enum DetailType {
+public enum DetailEnum {
     OIL_FILTER,
     AIR_FILTER,
     CABIN_FILTER,

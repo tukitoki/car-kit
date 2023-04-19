@@ -1,12 +1,12 @@
 package cs.vsu.raspopov.carkit.controller;
 
 import cs.vsu.raspopov.carkit.controller.api.DetailApi;
-import cs.vsu.raspopov.carkit.dto.detail.DetailDtoRequest;
-import cs.vsu.raspopov.carkit.dto.detail.DetailDtoResponse;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.ReplacementDetailDtoResponse;
+import cs.vsu.raspopov.carkit.dto.detail.response.DetailAddResponse;
+import cs.vsu.raspopov.carkit.service.DetailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,23 +15,33 @@ import java.util.List;
 @RestController
 public class DetailController implements DetailApi {
 
+    private final DetailService detailService;
+
     @Override
-    public void saveDetail(DetailDtoRequest dto) {
+    @PostMapping("/add")
+    public void saveDetail(@RequestBody DetailDto dto) {
+        detailService.saveDetail(dto);
+    }
+
+
+    @Override
+    @GetMapping("/add")
+    public DetailAddResponse showSaveDetail() {
+        return detailService.showSaveDetail();
+    }
+
+    @Override
+    public void deleteDetail(DetailDto dto) {
 
     }
 
     @Override
-    public void deleteDetail(DetailDtoRequest dto) {
-
+    public DetailDto getById(Long id) {
+        return detailService.getById(id);
     }
 
     @Override
-    public DetailDtoResponse getDtoById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public List<ReplacementDetailDtoResponse> getDetailReplacement(Integer id) {
+    public List<ReplacementDetailDtoResponse> getDetailReplacements(Long id) {
         return null;
     }
 }
