@@ -16,7 +16,6 @@ import org.hibernate.annotations.ColumnTransformer;
 @Entity
 public class DetailType {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

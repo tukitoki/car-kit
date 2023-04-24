@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @Table(name = "schedule")
 public class Schedule {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +30,6 @@ public class Schedule {
     private Time startWorkTime;
     @NotNull
     private Time endWorkTime;
-
     @ManyToOne()
     @JoinColumn(name = "auto_repair_shop_id")
     private AutoRepairShop autoRepairShop;

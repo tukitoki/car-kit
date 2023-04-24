@@ -4,15 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @SuperBuilder
 @NoArgsConstructor
-public class ScheduleShowDtoResponse {
+public class ScheduleShowResponse {
 
-    private LocalDate date;
-    private List<Time> availableTime;
+    private Map<LocalDate, List<LocalDateTime>> availableTime;
+
 }

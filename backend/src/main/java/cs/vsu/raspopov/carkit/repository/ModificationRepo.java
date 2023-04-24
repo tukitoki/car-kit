@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface ModificationRepo extends CrudRepository<Modification, Long> {
 
     Optional<Modification> findByNameAndEngineModelAndYearFromAndYearTo(
-            String name, String engineModel, Date yearFrom, Date yearTo);
+            String name, String engineModel, Integer yearFrom, Integer yearTo);
 }

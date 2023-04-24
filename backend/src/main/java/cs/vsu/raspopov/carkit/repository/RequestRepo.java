@@ -5,9 +5,11 @@ import cs.vsu.raspopov.carkit.entity.Request;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface RequestRepo extends CrudRepository<Request, Long> {
 
-    Optional<Request> findByAutoRepairShopAndDate(AutoRepairShop autoRepairShop, LocalDate date);
+    Optional<Request> findByAutoRepairShopAndStartTime(AutoRepairShop autoRepairShop,
+                                                       LocalDateTime startTime);
 }

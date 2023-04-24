@@ -19,7 +19,6 @@ import java.util.List;
 @Table(name = "car")
 public class Car {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,6 +33,4 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "modification_id")
     private Modification modification;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MaintenanceWork> maintenanceWork;
 }

@@ -17,7 +17,6 @@ import lombok.Setter;
 @Table(name = "detail_mileage_change")
 public class DetailMileageChange {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

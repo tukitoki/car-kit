@@ -1,14 +1,15 @@
 package cs.vsu.raspopov.carkit.dto.maintenance_work;
 
-import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 
 @Getter
+@NoArgsConstructor
 public class MaintenanceWorkDto {
 
-    private DetailEnum detailEnum;
-    private String dimensionName;
+    private String detailType;
+    private String dimension;
     private Time timeToChange;
 }

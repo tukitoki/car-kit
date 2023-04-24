@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "dimension")
 public class Dimension {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

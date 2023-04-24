@@ -20,7 +20,6 @@ import java.util.List;
 @Table(name = "brand")
 public class Brand {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

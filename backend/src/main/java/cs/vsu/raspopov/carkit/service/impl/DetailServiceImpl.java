@@ -14,6 +14,7 @@ import cs.vsu.raspopov.carkit.repository.DimensionRepo;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class DetailServiceImpl implements DetailService {
     @Override
     @Transactional
     public void saveDetail(DetailDto dto) {
+//        addDetailTypesToDB();
         Detail detail = detailMapper.toEntity(dto);
         var detailType = detailTypeRepo.findByName(DetailEnum.valueOf(dto.getDetailType()))
                 .orElseThrow(() -> new NoSuchElementException("NON"));
@@ -76,12 +78,16 @@ public class DetailServiceImpl implements DetailService {
     }
 
     public DetailDto getById(Long id) {
-        var detail = detailRepo.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("NON"));
+        var detail = getDetailById(id);
 
         return detailMapper.toDto(detail);
     }
 
+    @Override
+    public Detail getDetailById(Long id) {
+        return detailRepo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("NON"));
+    }
 
     private void addDetailTypesToDB() {
         var types = Arrays.stream(DetailEnum.values()).toList();

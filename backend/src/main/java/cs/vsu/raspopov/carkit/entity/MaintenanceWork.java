@@ -1,7 +1,9 @@
 package cs.vsu.raspopov.carkit.entity;
 
-import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,17 +23,11 @@ import java.sql.Time;
 public class MaintenanceWork {
 
     @NotNull
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private DetailEnum detailEnum;
+    @EmbeddedId
+    private MaintenanceWorkId id;
     @NotNull
     @ManyToOne
     private Dimension dimension;
     @NotNull
     private Time timeToChange;
-    @ManyToOne
-    private Car car;
 }

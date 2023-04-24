@@ -9,6 +9,6 @@ public class ModificationDto {
 
     private String name;
     private String engineModel;
-    private Date yearFrom;
-    private Date yearTo;
+    private Integer yearFrom;
+    private Integer yearTo;
 }

@@ -20,10 +20,9 @@ import java.util.Set;
 @Table(name = "detail")
 public class Detail {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "detail+id")
+    @Column(name = "detail_id")
     private Long id;
     @NotNull
     private String name;
@@ -40,7 +39,7 @@ public class Detail {
     @JoinColumn(name = "dimension_id")
     private Dimension dimension;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-    @JoinColumn(name = "detail_id")
+    @JoinColumn(name = "detail_type_id")
     private DetailType detailType;
     @ManyToMany(mappedBy = "details")
     private Set<Modification> modifications;

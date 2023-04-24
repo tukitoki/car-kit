@@ -31,9 +31,9 @@ public class Modification {
     @NotNull
     private String engineModel;
     @NotNull
-    private Date yearFrom;
+    private Integer yearFrom;
     @NotNull
-    private Date yearTo;
+    private Integer yearTo;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "car_detail",
             joinColumns = @JoinColumn(name = "car_id"),

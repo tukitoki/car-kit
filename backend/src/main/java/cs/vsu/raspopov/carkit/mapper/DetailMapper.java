@@ -2,8 +2,10 @@ package cs.vsu.raspopov.carkit.mapper;
 
 import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.entity.Detail;
-import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
 import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Component
 public class DetailMapper {
@@ -14,7 +16,7 @@ public class DetailMapper {
                 .description(detailDto.getDescription())
                 .price(detailDto.getPrice())
                 .producer(detailDto.getProducer())
-                .timeToDelivery(detailDto.getTimeToDelivery())
+                .timeToDelivery(Timestamp.valueOf(LocalDateTime.now().plusDays(5)))
                 .build();
     }
 
