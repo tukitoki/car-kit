@@ -36,7 +36,8 @@ public class DetailController implements DetailApi {
     }
 
     @Override
-    public DetailDto getById(Long id) {
+    @GetMapping("/{id}")
+    public DetailDto getById(@PathVariable Long id) {
         return detailService.getById(id);
     }
 

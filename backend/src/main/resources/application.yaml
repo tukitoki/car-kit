@@ -3,7 +3,11 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/car_kit
     username: postgres
-    password: RasP91AS
+    password:
   jpa:
     hibernate:
       ddl-auto: update
+
+repair-shop:
+  startTimeWork: 8:00
+  endTimeWork: 20:00

@@ -1,0 +1,40 @@
+<div class="detail-add">
+  <div class="selects-block">
+    <select [(ngModel)]="detail.detailType" class="form-select">
+      <option *ngFor="let detailType of detailAddResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
+    </select>
+    <div class="dimension-block">
+      <select [(ngModel)]="detail.dimension" class="form-select">
+        <option *ngFor="let dimension of detailAddResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
+      </select>
+      <input [(ngModel)]="dimens" name="dimension" id="dimension" required>
+      <button class="btn btn-outline-secondary" type="button" (click)="createDimension()">Add dimension</button>
+    </div>
+    <select class="form-select">
+      <option *ngFor="let detail of detailAddResponse.details">{{ detail.name }}</option>
+    </select>
+  </div>
+  <div class="info-block">
+    <div class="name">
+      <label>Name: </label>
+      <input [(ngModel)]="detail.name" name="name" id="name" required>
+    </div>
+    <div class="producer">
+      <label>Producer: </label>
+      <input [(ngModel)]="detail.producer" name="producer" id="producer" required>
+    </div>
+    <div class="time-to-delivery">
+      <label>Time to delivery: </label>
+      <input [(ngModel)]="detail.timeToDelivery" name="timeToDelivery" id="timeToDelivery" required>
+    </div>
+    <div class="description">
+      <label>description: </label>
+      <input [(ngModel)]="detail.description" name="description" id="description" required>
+    </div>
+    <div>
+      <label>Price:</label>
+      <input [(ngModel)]="detail.price" name="price" id="price" required>
+    </div>
+  </div>
+  <button class="btn btn-outline-secondary" type="button" (click)="saveDetail()">Add detail</button>
+</div>

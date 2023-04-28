@@ -4,7 +4,10 @@ package cs.vsu.raspopov.carkit.service.impl;
 import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.response.DetailAddResponse;
 import cs.vsu.raspopov.carkit.dto.detail.response.DetailResponse;
-import cs.vsu.raspopov.carkit.entity.*;
+import cs.vsu.raspopov.carkit.entity.Detail;
+import cs.vsu.raspopov.carkit.entity.DetailReplacement;
+import cs.vsu.raspopov.carkit.entity.DetailReplacementId;
+import cs.vsu.raspopov.carkit.entity.Dimension;
 import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
 import cs.vsu.raspopov.carkit.mapper.DetailMapper;
 import cs.vsu.raspopov.carkit.repository.DetailReplacementRepo;
@@ -14,11 +17,9 @@ import cs.vsu.raspopov.carkit.repository.DimensionRepo;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -34,9 +35,8 @@ public class DetailServiceImpl implements DetailService {
     @Override
     @Transactional
     public void saveDetail(DetailDto dto) {
-//        addDetailTypesToDB();
         Detail detail = detailMapper.toEntity(dto);
-        var detailType = detailTypeRepo.findByName(DetailEnum.valueOf(dto.getDetailType()))
+        var detailType = detailTypeRepo.findByDisplayName(dto.getDetailType())
                 .orElseThrow(() -> new NoSuchElementException("NON"));
         detail.setDetailType(detailType);
         var dimension = dimensionRepo.findByDimensionName(dto.getDimension())
@@ -55,7 +55,7 @@ public class DetailServiceImpl implements DetailService {
     public DetailAddResponse showSaveDetail() {
         ArrayList<String> types = new ArrayList<>();
         detailTypeRepo.findAll().forEach(detailType -> {
-            types.add(detailType.getName());
+            types.add(detailType.getDisplayName());
         });
 
         ArrayList<String> dimensions = new ArrayList<>();
@@ -77,22 +77,21 @@ public class DetailServiceImpl implements DetailService {
                 .build();
     }
 
+    @Override
     public DetailDto getById(Long id) {
         var detail = getDetailById(id);
+        var listReplacementsIds = detailReplacementRepo.findAllById_DetailId(id)
+                .stream()
+                .map(detailReplacement ->
+                        detailReplacement.getId().getReplacementDetailId())
+                .toList();
 
-        return detailMapper.toDto(detail);
+        return detailMapper.toDto(detail, listReplacementsIds);
     }
 
     @Override
     public Detail getDetailById(Long id) {
         return detailRepo.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("NON"));
-    }
-
-    private void addDetailTypesToDB() {
-        var types = Arrays.stream(DetailEnum.values()).toList();
-        types.forEach(detailEnum -> {
-            detailTypeRepo.save(new DetailType(detailEnum));
-        });
     }
 }

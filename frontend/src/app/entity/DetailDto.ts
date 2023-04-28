@@ -1,7 +1,13 @@
-import { ModificationDto } from "./ModificationDto"
+import { Time } from "@angular/common";
 
 export interface DetailDto {
-    brand: string
-    modelName: string
-    modificationDto: ModificationDto
+  id: number | null;
+  name: string;
+  description: string;
+  price: number;
+  producer: string;
+  timeToDelivery: string;
+  dimension: string;
+  detailType: string;
+  replacementIds: number[];
 }

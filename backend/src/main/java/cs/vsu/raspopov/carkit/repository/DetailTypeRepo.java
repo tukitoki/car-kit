@@ -11,6 +11,8 @@ public interface DetailTypeRepo extends CrudRepository<DetailType, Long> {
 
     Optional<DetailType> findByName(DetailEnum name);
 
+    Optional<DetailType> findByDisplayName(String displayName);
+
     @Query(value = "SELECT COUNT(*) from  DetailType")
     int getAllTypes();
 }

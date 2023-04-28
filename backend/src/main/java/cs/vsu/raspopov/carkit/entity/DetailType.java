@@ -26,8 +26,11 @@ public class DetailType {
     @Enumerated(EnumType.STRING)
     private DetailEnum name;
 
-    public DetailType(DetailEnum name) {
+    private String displayName;
+
+    public DetailType(DetailEnum name, String displayName) {
         this.name = name;
+        this.displayName = displayName;
     }
 
     public String getName() {

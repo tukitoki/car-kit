@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -29,5 +29,5 @@ public class MaintenanceWork {
     @ManyToOne
     private Dimension dimension;
     @NotNull
-    private Time timeToChange;
+    private LocalTime timeToChange;
 }

@@ -1,29 +1,35 @@
 package cs.vsu.raspopov.carkit.entity.enums;
 
 public enum DetailEnum {
-    OIL_FILTER,
-    AIR_FILTER,
-    CABIN_FILTER,
-    FRONT_BRAKE_PADS,
-    REAR_BRAKE_PADS,
-    FRONT_BRAKE_DISC,
-    REAR_BRAKE_DISC,
-    BRAKE_DRUM,
-    SPARK_PLUG,
-    IGNITION_COIL,
-    DRIVER_WIPER_BLADE,
-    PASSENGER_WIPER_BLADE,
-    REAR_WIPER_BLADE,
-    DRAIN_PLUG,
-    FRONT_WHEEL_BEARING,
-    REAR_WHEEL_BEARING,
-    MIDDLE_SHOCK_ABSORBER,
-    REAR_SHOCK_ABSORBER,
-    FRONT_SHOCK_ABSORBER_SUPPORT
+    OIL_FILTER("Масляный фильтр"),
+    AIR_FILTER("Воздушный фильтр"),
+    CABIN_FILTER("Кабиный фильтр"),
+    FRONT_BRAKE_PADS("Передние тормозные колодки"),
+    REAR_BRAKE_PADS("Задние тормозные колодки"),
+    FRONT_BRAKE_DISC("Передний тормозной диск"),
+    REAR_BRAKE_DISC("Задний тормозной диск"),
+    BRAKE_DRUM("Тормозной барабан"),
+    SPARK_PLUG("Свеча зажигания"),
+    IGNITION_COIL("Катушка зажигания"),
+    DRIVER_WIPER_BLADE("Щетка стеклоочистителя водителя"),
+    PASSENGER_WIPER_BLADE("Щетка стеклоочистителя пассажира"),
+    REAR_WIPER_BLADE("Щетка стеклоочистителя задняя"),
+    DRAIN_PLUG("Сливная пробка"),
+    FRONT_WHEEL_BEARING("Передний ступичный подшипник"),
+    REAR_WHEEL_BEARING("Задний ступичный подшипник"),
+    MIDDLE_SHOCK_ABSORBER("Средний амортизатор"),
+    REAR_SHOCK_ABSORBER("Задний амортизатор"),
+    FRONT_SHOCK_ABSORBER_SUPPORT("Опора переднего амортизатора")
     ;
+
+    private final String name;
+
+    DetailEnum(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {
-        return this.name();
+        return this.name;
     }
 }

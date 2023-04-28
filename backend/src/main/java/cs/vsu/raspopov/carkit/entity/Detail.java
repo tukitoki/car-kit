@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class Detail {
     @NotNull
     private String producer;
     @NotNull
-    private Timestamp timeToDelivery;
+    private Time timeToDelivery;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "dimension_id")
     private Dimension dimension;

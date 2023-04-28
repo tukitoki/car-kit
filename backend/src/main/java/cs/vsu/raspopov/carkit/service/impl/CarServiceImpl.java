@@ -72,7 +72,7 @@ public class CarServiceImpl implements CarService {
     public void addDetailsToCar(CarAddDetailsRequest dto, Long id) {
         var modification = getCar(id).getModification();
         dto.getDetailIds().forEach(detailId -> {
-            var detail = detailService.getDetailById(id);
+            var detail = detailService.getDetailById(detailId);
             modification.getDetails().add(detail);
         });
         modificationRepo.save(modification);
@@ -91,7 +91,8 @@ public class CarServiceImpl implements CarService {
         return null;
     }
 
-    private Car getCar(Long id) {
+    @Override
+    public Car getCar(Long id) {
         return carRepo.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(""));
     }
