@@ -1,8 +1,6 @@
 package cs.vsu.raspopov.carkit.controller.api;
 
-import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
-import cs.vsu.raspopov.carkit.dto.detail.ReplacementDetailDtoResponse;
-import cs.vsu.raspopov.carkit.dto.detail.response.DetailAddResponse;
+import cs.vsu.raspopov.carkit.dto.detail.*;
 
 import java.util.List;
 
@@ -12,9 +10,7 @@ public interface DetailApi {
 
     DetailAddResponse showSaveDetail();
 
-    void deleteDetail(DetailDto dto);
+    List<DetailMileageDto> getDetailsByMileage(DetailMileageRequest detailMileageRequest);
 
     DetailDto getById(Long id);
-
-    List<ReplacementDetailDtoResponse> getDetailReplacements(Long id);
 }

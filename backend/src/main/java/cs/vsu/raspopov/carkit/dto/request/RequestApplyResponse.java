@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -14,7 +12,7 @@ import java.time.LocalDateTime;
 public class RequestApplyResponse {
 
     private RequestTime requestTime;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String date;
+    private String startTime;
     private String phoneNumber;
 }

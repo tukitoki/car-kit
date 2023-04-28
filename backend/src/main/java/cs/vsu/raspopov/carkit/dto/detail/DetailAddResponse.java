@@ -1,4 +1,4 @@
-package cs.vsu.raspopov.carkit.dto.detail.response;
+package cs.vsu.raspopov.carkit.dto.detail;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;

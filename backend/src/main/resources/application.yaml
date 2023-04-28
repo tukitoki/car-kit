@@ -3,11 +3,11 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/car_kit
     username: postgres
-    password:
+    password: RasP91AS
   jpa:
     hibernate:
       ddl-auto: update
 
 repair-shop:
-  startTimeWork: 8:00
-  endTimeWork: 20:00
+  startTimeWork: "08:00"
+  endTimeWork: "19:00"

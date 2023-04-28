@@ -28,6 +28,15 @@ public enum DetailEnum {
         this.name = name;
     }
 
+    public static DetailEnum fromName(String name) {
+        for (DetailEnum detailEnum : DetailEnum.values()) {
+            if (detailEnum.name.equalsIgnoreCase(name)) {
+                return detailEnum;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return this.name;

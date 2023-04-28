@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { DetailComponent } from './detail-add/detail-add.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RequestComponent } from './request/request.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DetailComponent
+    DetailComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

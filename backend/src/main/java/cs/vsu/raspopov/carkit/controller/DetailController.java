@@ -1,9 +1,7 @@
 package cs.vsu.raspopov.carkit.controller;
 
 import cs.vsu.raspopov.carkit.controller.api.DetailApi;
-import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
-import cs.vsu.raspopov.carkit.dto.detail.ReplacementDetailDtoResponse;
-import cs.vsu.raspopov.carkit.dto.detail.response.DetailAddResponse;
+import cs.vsu.raspopov.carkit.dto.detail.*;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,6 @@ public class DetailController implements DetailApi {
         detailService.saveDetail(dto);
     }
 
-
     @Override
     @GetMapping("/add")
     public DetailAddResponse showSaveDetail() {
@@ -31,18 +28,14 @@ public class DetailController implements DetailApi {
     }
 
     @Override
-    public void deleteDetail(DetailDto dto) {
-
+    @GetMapping("/mileage-details")
+    public List<DetailMileageDto> getDetailsByMileage(@RequestBody DetailMileageRequest detailMileageRequest) {
+        return detailService.getDetailsByMileage(detailMileageRequest);
     }
 
     @Override
     @GetMapping("/{id}")
     public DetailDto getById(@PathVariable Long id) {
         return detailService.getById(id);
-    }
-
-    @Override
-    public List<ReplacementDetailDtoResponse> getDetailReplacements(Long id) {
-        return null;
     }
 }

@@ -1,6 +1,6 @@
 package cs.vsu.raspopov.carkit.dto.schedule;
 
-import cs.vsu.raspopov.carkit.dto.detail.response.DetailResponse;
+import cs.vsu.raspopov.carkit.dto.detail.DetailResponse;
 import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceWorkDto;
 
 import java.util.List;

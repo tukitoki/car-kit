@@ -1,23 +1,30 @@
 package cs.vsu.raspopov.carkit.service;
 
-import cs.vsu.raspopov.carkit.dto.CarDto;
+import cs.vsu.raspopov.carkit.dto.car.BrandDto;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsRequest;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsResponse;
-import cs.vsu.raspopov.carkit.dto.car.CarDtoResponse;
-import cs.vsu.raspopov.carkit.dto.car.response.CarAddResponse;
+import cs.vsu.raspopov.carkit.dto.car.CarDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
 import cs.vsu.raspopov.carkit.entity.Car;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
+@Validated
 public interface CarService {
 
-    void saveCar(CarDto dto);
+    void saveCar(@NotNull CarDto dto);
 
-    CarDtoResponse getCarById(Long id);
+    CarDto getCarById(@NotNull Long id);
 
-    Car getCar(Long id);
+    List<BrandDto> getAllCars();
 
-    CarAddResponse showSaveCar();
+    Car getCar(@NotNull Long id);
 
-    void addDetailsToCar(CarAddDetailsRequest dto, Long id);
+    void addMileageDetails(@NotNull List<DetailMileageAdd> dto, @NotNull Long id);
 
-    CarAddDetailsResponse showAddDetailsToCar(Long id);
+    void addDetailsToCar(@NotNull CarAddDetailsRequest dto, @NotNull Long id);
+
+    CarAddDetailsResponse showAddDetailsToCar(@NotNull Long id);
 }

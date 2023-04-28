@@ -1,19 +1,18 @@
 package cs.vsu.raspopov.carkit.dto.car;
 
-import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @Setter
 @Getter
 @SuperBuilder
-public class CarAddDetailsResponse {
+@NoArgsConstructor
+public class CarDto {
 
+    private Long id;
     private String brand;
-    private String modelName;
+    private String model;
     private ModificationDto modificationDto;
-    private List<DetailDto> details;
 }

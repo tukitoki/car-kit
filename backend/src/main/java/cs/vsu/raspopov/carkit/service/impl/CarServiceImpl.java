@@ -1,30 +1,19 @@
 package cs.vsu.raspopov.carkit.service.impl;
 
-import cs.vsu.raspopov.carkit.dto.CarDto;
-import cs.vsu.raspopov.carkit.dto.ModificationDto;
-import cs.vsu.raspopov.carkit.dto.car.BrandDto;
-import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsRequest;
-import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsResponse;
-import cs.vsu.raspopov.carkit.dto.car.CarDtoResponse;
-import cs.vsu.raspopov.carkit.dto.car.response.CarAddResponse;
-import cs.vsu.raspopov.carkit.entity.Brand;
-import cs.vsu.raspopov.carkit.entity.Car;
-import cs.vsu.raspopov.carkit.entity.Model;
-import cs.vsu.raspopov.carkit.entity.Modification;
+import cs.vsu.raspopov.carkit.dto.car.*;
+import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
+import cs.vsu.raspopov.carkit.entity.*;
+import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
+import cs.vsu.raspopov.carkit.mapper.BrandMapper;
 import cs.vsu.raspopov.carkit.mapper.CarMapper;
-import cs.vsu.raspopov.carkit.repository.BrandRepo;
-import cs.vsu.raspopov.carkit.repository.CarRepo;
-import cs.vsu.raspopov.carkit.repository.ModelRepo;
-import cs.vsu.raspopov.carkit.repository.ModificationRepo;
+import cs.vsu.raspopov.carkit.repository.*;
 import cs.vsu.raspopov.carkit.service.CarService;
 import cs.vsu.raspopov.carkit.service.DetailService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -36,6 +25,9 @@ public class CarServiceImpl implements CarService {
     private final BrandRepo brandRepo;
     private final ModelRepo modelRepo;
     private final ModificationRepo modificationRepo;
+    private final DetailMileageChangeRepo detailMileageChangeRepo;
+    private final DetailTypeRepo detailTypeRepo;
+    private final BrandMapper brandMapper;
 
     @Override
     public void saveCar(CarDto dto) {
@@ -50,22 +42,6 @@ public class CarServiceImpl implements CarService {
 
         var car = carMapper.toEntity(brand, model, modification);
         carRepo.save(car);
-    }
-
-    @Override
-    public CarAddResponse showSaveCar() {
-        ArrayList<BrandDto> brandDtos = new ArrayList<>();
-        brandRepo.findAll().forEach(brand -> {
-            brandDtos.add(BrandDto.builder()
-                    .brand(brand.getName())
-                    .models(brand.getModels().stream()
-                            .map(Model::getName)
-                            .toList())
-                    .build());
-        });
-        return CarAddResponse.builder()
-                .brandDtos(brandDtos)
-                .build();
     }
 
     @Override
@@ -84,7 +60,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDtoResponse getCarById(Long id) {
+    public CarDto getCarById(Long id) {
         var car = getCar(id);
 
 
@@ -92,9 +68,34 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<BrandDto> getAllCars() {
+        List<BrandDto> brandDtos = new LinkedList<>();
+        brandRepo.findAll().forEach(brand -> {
+            brandDtos.add(brandMapper.toDto(brand));
+        });
+        return brandDtos;
+    }
+
+    @Override
     public Car getCar(Long id) {
         return carRepo.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(""));
+    }
+
+    @Override
+    @Transactional
+    public void addMileageDetails(List<DetailMileageAdd> dto, Long id) {
+        var car = getCar(id);
+
+        dto.forEach(detailMileageAdd -> {
+            var detailType = detailTypeRepo.findByDisplayName(detailMileageAdd.getDetailType())
+                    .orElseThrow();
+            detailMileageChangeRepo.save(DetailMileageChange.builder()
+                    .mileage(detailMileageAdd.getMileage())
+                    .detailType(detailType)
+                    .modification(car.getModification())
+                    .build());
+        });
     }
 
     private Brand getBrandByName(String name) {

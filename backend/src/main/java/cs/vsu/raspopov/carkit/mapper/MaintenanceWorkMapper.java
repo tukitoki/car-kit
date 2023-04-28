@@ -6,14 +6,17 @@ import cs.vsu.raspopov.carkit.entity.MaintenanceWork;
 import cs.vsu.raspopov.carkit.entity.MaintenanceWorkId;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
+
 @Component
 public class MaintenanceWorkMapper {
 
-    public MaintenanceWork toEntity(MaintenanceWorkDto dto, Dimension dimension, Long carId, Long detailTypeId) {
+    public MaintenanceWork toEntity(MaintenanceWorkDto dto, Dimension dimension,
+                                    Long carId, Long detailTypeId) {
         return MaintenanceWork.builder()
                 .id(new MaintenanceWorkId(carId, detailTypeId))
                 .dimension(dimension)
-                .timeToChange(dto.getTimeToChange())
+                .timeToChange(LocalTime.parse(dto.getTimeToChange()))
                 .build();
     }
 }

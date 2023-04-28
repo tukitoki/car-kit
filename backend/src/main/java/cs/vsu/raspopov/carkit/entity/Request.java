@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "request")
 public class Request {
@@ -30,6 +32,9 @@ public class Request {
     @ManyToOne()
     @JoinColumn(name = "auto_repair_shop_id")
     private AutoRepairShop autoRepairShop;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
     @ManyToMany
     private List<Detail> details;
     @ManyToMany

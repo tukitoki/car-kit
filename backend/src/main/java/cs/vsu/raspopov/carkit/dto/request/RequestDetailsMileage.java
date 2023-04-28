@@ -2,13 +2,13 @@ package cs.vsu.raspopov.carkit.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
-public class RequestTime {
+public class RequestDetailsMileage {
 
     private Long carId;
-    private List<Long> details;
+    private Integer mileage;
 }

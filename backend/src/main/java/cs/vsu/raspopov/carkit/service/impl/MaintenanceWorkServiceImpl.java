@@ -2,9 +2,8 @@ package cs.vsu.raspopov.carkit.service.impl;
 
 import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceWorkDto;
 import cs.vsu.raspopov.carkit.entity.Dimension;
-import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
+import cs.vsu.raspopov.carkit.entity.MaintenanceWork;
 import cs.vsu.raspopov.carkit.mapper.MaintenanceWorkMapper;
-import cs.vsu.raspopov.carkit.repository.CarRepo;
 import cs.vsu.raspopov.carkit.repository.DetailTypeRepo;
 import cs.vsu.raspopov.carkit.repository.DimensionRepo;
 import cs.vsu.raspopov.carkit.repository.MaintenanceWorkRepo;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +21,6 @@ public class MaintenanceWorkServiceImpl implements MaintenanceWorkService {
     private final MaintenanceWorkMapper maintenanceWorkMapper;
     private final CarService carService;
     private final MaintenanceWorkRepo maintenanceWorkRepo;
-    private final CarRepo carRepo;
     private final DimensionRepo dimensionRepo;
     private final DetailTypeRepo detailTypeRepo;
 
@@ -32,17 +29,23 @@ public class MaintenanceWorkServiceImpl implements MaintenanceWorkService {
         var car = carService.getCar(id);
 
         var dimension = getDimensionByName(dto.getDimension());
-        var detailType = detailTypeRepo.findByName(DetailEnum.valueOf(dto.getDetailType()))
-                .orElseThrow(() -> new NoSuchElementException(("")));
+        var detailType = detailTypeRepo.findByDisplayName(dto.getDetailType())
+                .orElseThrow();
 
         var work = maintenanceWorkMapper.toEntity(dto, dimension, car.getId(), detailType.getId());
         maintenanceWorkRepo.save(work);
     }
 
     @Override
+    public MaintenanceWork getMaintenanceWork(Long carId, Long detailTypeId) {
+        return maintenanceWorkRepo
+                .findById_CarIdAndId_DetailTypeId(carId, detailTypeId)
+                .orElseThrow();
+    }
+
+    @Override
     public LocalTime calcTimeByCarId(Long carId, Long detailTypeId) {
-        var maintenanceWorks = maintenanceWorkRepo
-                .findAllById_CarIdAndId_DetailTypeId(carId, detailTypeId);
+        var maintenanceWorks = getMaintenanceWork(carId, detailTypeId);
 
         return maintenanceWorks.getTimeToChange();
     }

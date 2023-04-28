@@ -14,12 +14,13 @@ import java.util.List;
 public class DetailMapper {
 
     public Detail toEntity(DetailDto detailDto) {
+        var localTime = LocalTime.parse(detailDto.getTimeToDelivery());
         return Detail.builder()
                 .name(detailDto.getName())
                 .description(detailDto.getDescription())
                 .price(detailDto.getPrice())
                 .producer(detailDto.getProducer())
-                .timeToDelivery(Time.valueOf(LocalTime.now().plusHours(48)))
+                .timeToDelivery(Time.valueOf(localTime))
                 .build();
     }
 

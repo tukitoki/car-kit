@@ -1,14 +1,16 @@
 package cs.vsu.raspopov.carkit.controller;
 
 import cs.vsu.raspopov.carkit.controller.api.CarApi;
-import cs.vsu.raspopov.carkit.dto.CarDto;
+import cs.vsu.raspopov.carkit.dto.car.BrandDto;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsRequest;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsResponse;
-import cs.vsu.raspopov.carkit.dto.car.CarDtoResponse;
-import cs.vsu.raspopov.carkit.dto.car.response.CarAddResponse;
+import cs.vsu.raspopov.carkit.dto.car.CarDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
 import cs.vsu.raspopov.carkit.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/car")
@@ -25,13 +27,19 @@ public class CarController implements CarApi {
 
     @Override
     @GetMapping
-    public CarAddResponse showSaveCar() {
-        return carService.showSaveCar();
+    public List<BrandDto> showSaveCar() {
+        return carService.getAllCars();
+    }
+
+    @Override
+    @GetMapping("/all")
+    public List<BrandDto> getAllCars() {
+        return carService.getAllCars();
     }
 
     @Override
     @GetMapping("/{id}")
-    public CarDtoResponse getCarById(@PathVariable Long id) {
+    public CarDto getCarById(@PathVariable Long id) {
         return carService.getCarById(id);
     }
 
@@ -39,6 +47,12 @@ public class CarController implements CarApi {
     public void addDetailsToCar(@RequestBody CarAddDetailsRequest dto,
                                 @PathVariable Long id) {
         carService.addDetailsToCar(dto, id);
+    }
+
+    @PostMapping("/{id}/add-mileage")
+    public void addMileageDetails(@RequestBody List<DetailMileageAdd> dto,
+                                  @PathVariable Long id) {
+        carService.addMileageDetails(dto, id);
     }
 
     @GetMapping("/{id}/add-details")

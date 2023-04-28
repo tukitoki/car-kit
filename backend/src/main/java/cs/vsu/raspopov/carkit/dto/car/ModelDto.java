@@ -7,8 +7,8 @@ import java.util.Set;
 
 @Getter
 @SuperBuilder
-public class BrandDto {
+public class ModelDto {
 
-    private String brand;
-    private Set<ModelDto> models;
+    private String model;
+    private Set<ModificationDto> modifications;
 }
