@@ -1,17 +1,29 @@
 <div>
   <div class="select-brand">
-    <select class="form-select">
-      <option *ngFor="let car of cars">{{ car.brand }}</option>
+    <select [(ngModel)]="brand" (change)="clearOnBrand($event)" class="form-select">
+      <option *ngFor="let car of cars" [ngValue]="car">{{ car.brand }}</option>
     </select>
   </div>
   <div class="select-model">
-    <select class="form-select">
-      <option *ngFor="let car of cars">{{ car.brand }}> </option>
+    <select [(ngModel)]="model" class="form-select" (change)="clearOnModel($event)" *ngIf="brand !== undefined">
+      <option *ngFor="let ml of brand.models" [ngValue]="ml">{{ ml.model }}> </option>
     </select>
   </div>
   <div class="select-modification">
-    <select class="form-select">
-      <option> </option>
+    <select [(ngModel)]="modification" class="form-select" *ngIf="model">
+      <option *ngFor="let modif of model.modifications" [ngValue]="modif">{{ modif.name }}> </option>
     </select>
+  </div>
+  <div class="mileage" *ngIf="modification">
+    <label>Mileage: </label>
+    <input [(ngModel)]="mileage" type="number" min="0" name="mileage" id="mileage" required>
+  </div>
+  <div class="get-details-button" *ngIf="mileage">
+    <button class="btn btn-outline-secondary" type="button" (click)="getDetails()">Get details</button>
+  </div>
+  <div *ngIf="mileageDto !== undefined">
+    <app-mileage-details [dto]="mileageDto"
+    [carId]="this.modification?.id">
+    </app-mileage-details>
   </div>
 </div>

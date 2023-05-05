@@ -1,9 +1,14 @@
 package cs.vsu.raspopov.carkit.controller;
 
-import cs.vsu.raspopov.carkit.dto.request.*;
+import cs.vsu.raspopov.carkit.dto.request.RequestApplyResponse;
+import cs.vsu.raspopov.carkit.dto.request.RequestDetailsMileage;
+import cs.vsu.raspopov.carkit.dto.request.RequestTime;
+import cs.vsu.raspopov.carkit.dto.request.RequestTimeResponse;
 import cs.vsu.raspopov.carkit.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/request")
@@ -23,7 +28,11 @@ public class RequestController {
     }
 
     @GetMapping("/apply")
-    public RequestTimeResponse infoRequest(@RequestBody RequestTime requestTime) {
-        return requestService.infoRequest(requestTime);
+    public RequestTimeResponse infoRequest(@RequestParam Long carId,
+                                           @RequestParam List<Long> detailIds) {
+        return requestService.infoRequest(RequestTime.builder()
+                .carId(carId)
+                .details(detailIds)
+                .build());
     }
 }

@@ -1,12 +1,13 @@
 package cs.vsu.raspopov.carkit.controller;
 
 import cs.vsu.raspopov.carkit.controller.api.DetailApi;
-import cs.vsu.raspopov.carkit.dto.detail.*;
+import cs.vsu.raspopov.carkit.dto.detail.DetailAddResponse;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailMileageDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailMileageRequest;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/detail")
@@ -29,8 +30,9 @@ public class DetailController implements DetailApi {
 
     @Override
     @GetMapping("/mileage-details")
-    public List<DetailMileageDto> getDetailsByMileage(@RequestBody DetailMileageRequest detailMileageRequest) {
-        return detailService.getDetailsByMileage(detailMileageRequest);
+    public DetailMileageDto getDetailsByMileage(@RequestParam Integer mileage,
+                                                @RequestParam Long carId) {
+        return detailService.getDetailsByMileage(new DetailMileageRequest(mileage, carId));
     }
 
     @Override

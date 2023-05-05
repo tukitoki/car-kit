@@ -45,9 +45,9 @@ public class DetailServiceImpl implements DetailService {
 
         detail = detailRepo.save(detail);
 
-        for (var replacementId : dto.getReplacementIds()) {
-            getDetailById(replacementId);
-            var detailReplacementId = new DetailReplacementId(detail.getId(), replacementId);
+        for (var detailResponse : dto.getDetailResponses()) {
+            getDetailById(detailResponse.getId());
+            var detailReplacementId = new DetailReplacementId(detail.getId(), detailResponse.getId());
             detailReplacementRepo.save(new DetailReplacement(detailReplacementId));
         }
     }
@@ -83,39 +83,50 @@ public class DetailServiceImpl implements DetailService {
         var detail = getDetailById(id);
         var listReplacementsIds = detailReplacementRepo.findAllById_DetailId(id)
                 .stream()
-                .map(detailReplacement ->
-                        detailReplacement.getId().getReplacementDetailId())
+                .map(detailReplacement -> {
+                    var replacement = getDetailById(detailReplacement.getId().getReplacementDetailId());
+                    DetailResponse detailResponse = DetailResponse.builder()
+                            .name(replacement.getName())
+                            .id(replacement.getId())
+                            .build();
+                    return detailResponse;
+                })
                 .toList();
 
         return detailMapper.toDto(detail, listReplacementsIds);
     }
 
     @Override
-    public List<DetailMileageDto> getDetailsByMileage(DetailMileageRequest detailMileageRequest) {
+    public DetailMileageDto getDetailsByMileage(DetailMileageRequest detailMileageRequest) {
         var modification = modificationRepo.findById(detailMileageRequest.getCarId())
                 .orElseThrow();
 
-        ArrayList<DetailMileageDto> detailResponses = new ArrayList<>();
+        ArrayList<DetailDto> detailsToChange = new ArrayList<>();
+        ArrayList<DetailDto> otherDetails = new ArrayList<>();
         modification.getDetailMileageChange().forEach(detailMileageChange -> {
+            List<Long> detailIds = new ArrayList<>();
+            modification.getDetails().forEach(detail -> {
+                if (detail.getDetailType().equals(detailMileageChange.getDetailType())) {
+                    detailIds.add(detail.getId());
+                }
+            });
             if (detailMileageRequest.getMileage() >= detailMileageChange.getMileage()) {
-                detailResponses.add(DetailMileageDto.builder()
-                        .detailType(detailMileageChange.getDetailType().getDisplayName())
-                        .build());
+                detailsToChange.addAll(detailIds.
+                        stream()
+                        .map(this::getById)
+                        .toList());
+            } else {
+                otherDetails.addAll(detailIds.
+                        stream()
+                        .map(this::getById)
+                        .toList());
             }
         });
 
-//        modification.getDetails().forEach(detail -> {
-//            var detailMileage = detailMileageChangeRepo
-//                    .findByDetailTypeAndModification(detail.getDetailType(), modification)
-//                    .orElseThrow();
-//            if (detailMileageRequest.getMileage() >= detailMileage.getMileage()) {
-//                detailResponses.add(DetailResponse.builder()
-//                        .id(detail.getId())
-//                        .name(detail.getName())
-//                        .build());
-//            }
-//        });
-        return detailResponses;
+        return DetailMileageDto.builder()
+                .detailsToChange(detailsToChange)
+                .otherDetails(otherDetails)
+                .build();
     }
 
     @Override

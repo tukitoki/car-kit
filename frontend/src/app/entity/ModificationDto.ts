@@ -1,6 +1,7 @@
 export interface ModificationDto {
-    name: string
-    engineModel: string
-    yearFrom: Date
-    yearTo: Date
+  id: number
+  name: string
+  engineModel: string
+  yearFrom: number
+  yearTo: number
 }

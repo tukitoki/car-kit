@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class ModificationDto {
 
+    private Long id;
     private String name;
     private String engineModel;
     private Integer yearFrom;

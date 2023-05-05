@@ -1,8 +1,8 @@
 package cs.vsu.raspopov.carkit.controller.api;
 
-import cs.vsu.raspopov.carkit.dto.detail.*;
-
-import java.util.List;
+import cs.vsu.raspopov.carkit.dto.detail.DetailAddResponse;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailMileageDto;
 
 public interface DetailApi {
 
@@ -10,7 +10,7 @@ public interface DetailApi {
 
     DetailAddResponse showSaveDetail();
 
-    List<DetailMileageDto> getDetailsByMileage(DetailMileageRequest detailMileageRequest);
+    DetailMileageDto getDetailsByMileage(Integer mileage, Long carId);
 
     DetailDto getById(Long id);
 }

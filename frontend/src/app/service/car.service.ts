@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CarDtoResponse } from '../entity/CarDtoResponse';
+import { BrandDto } from '../entity/BrandDto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class CarService {
     this.url = 'http://localhost:8080/api/car'
   }
 
-  public getAllCars(): Observable<CarDtoResponse[]> {
-    return this.httpClient.get<CarDtoResponse[]>(`${this.url}/all`)
+  public getAllCars(): Observable<BrandDto[]> {
+    return this.httpClient.get<BrandDto[]>(`${this.url}/all`)
   }
 }

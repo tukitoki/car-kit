@@ -1,0 +1,13 @@
+.detail {
+	border: 1px solid black;
+	padding: 10px;
+	margin: 10px;
+}
+
+.manufacturer {
+	font-weight: bold;
+}
+
+.type {
+	font-style: italic;
+}

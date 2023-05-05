@@ -16,7 +16,7 @@ public interface DetailService {
 
     DetailDto getById(@NotNull Long id);
 
-    List<DetailMileageDto> getDetailsByMileage(DetailMileageRequest detailMileageRequest);
+    DetailMileageDto getDetailsByMileage(DetailMileageRequest detailMileageRequest);
 
     Detail getDetailById(@NotNull Long id);
 }

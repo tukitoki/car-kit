@@ -19,6 +19,6 @@ public class DetailDto {
     private String producer;
     private String timeToDelivery;
     private String dimension;
-    private List<Long> replacementIds;
+    private List<DetailResponse> detailResponses;
     private String detailType;
 }

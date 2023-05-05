@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DetailDto } from '../entity/DetailDto';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-add-detail',
   templateUrl: './detail-add.component.html',
   styleUrls: ['./detail-add.component.css']
 })
-export class DetailComponent implements OnInit {
+export class DetailAddComponent implements OnInit {
 
   @Input() detailAddResponse!: DetailAddResponse;
   detail: DetailDto;
@@ -26,10 +26,10 @@ export class DetailComponent implements OnInit {
       description: "",
       price: 0.0,
       producer: "",
-      timeToDelivery: "2:20",
+      timeToDelivery: "",
       dimension: "",
       detailType: "",
-      replacementIds: []
+      detailResponses: []
     }
   }
 

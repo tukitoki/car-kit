@@ -1,0 +1,13 @@
+#list {
+  display: none;
+}
+#list.show {
+  display: block;
+}
+.details {
+  padding: 10px;
+}
+.checkbox-li {
+  flex-direction: row;
+  display: flex;
+}

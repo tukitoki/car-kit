@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DetailDto } from '../entity/DetailDto';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DetailService } from '../service/detail.service';
 
 @Component({
   selector: 'app-detail',
@@ -7,4 +10,20 @@ import { Component } from '@angular/core';
 })
 export class DetailComponent {
 
+  @Input() detail!: DetailDto
+
+  constructor(
+    private detailService: DetailService,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    this.getDetailFromServer(this.route.snapshot.params['id'])
+  }
+
+  private getDetailFromServer(id: number) {
+    this.detailService.getById(id).subscribe({
+      next: value => this.detail = value
+    })
+  }
 }

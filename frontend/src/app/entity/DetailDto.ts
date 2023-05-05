@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { DetailResponse } from "./DetailResponse";
 
 export interface DetailDto {
   id: number | null;
@@ -9,5 +10,5 @@ export interface DetailDto {
   timeToDelivery: string;
   dimension: string;
   detailType: string;
-  replacementIds: number[];
+  detailResponses: DetailResponse[];
 }

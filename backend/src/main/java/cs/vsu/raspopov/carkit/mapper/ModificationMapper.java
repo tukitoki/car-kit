@@ -9,6 +9,7 @@ public class ModificationMapper {
 
     public ModificationDto toDto(Modification modification) {
         return ModificationDto.builder()
+                .id(modification.getId())
                 .name(modification.getName())
                 .engineModel(modification.getEngineModel())
                 .yearFrom(modification.getYearFrom())

@@ -2,11 +2,9 @@ package cs.vsu.raspopov.carkit.mapper;
 
 import cs.vsu.raspopov.carkit.dto.car.ModelDto;
 import cs.vsu.raspopov.carkit.entity.Model;
-import cs.vsu.raspopov.carkit.entity.Modification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
