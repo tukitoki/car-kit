@@ -1,0 +1,19 @@
+<div>
+  <div class="date" *ngFor="let item of response.availableTime | keyvalue">
+    <div class="date">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
+        aria-expanded="false" (click)="selectDate(item.key)">
+        {{ item.key }}
+      </button>
+      <div *ngIf="selectedDate == item.key">
+        <div *ngFor="let time of item.value">
+          <input type="checkbox" class="btn-check" id="btn-check-2-outlined{{item.key + time}}" checked
+            autocomplete="off" [checked]="time == selectedStartTime" (click)="checkSelected(time)">
+          <label class="btn btn-outline-secondary" for="btn-check-2-outlined{{item.key + time}}">{{ time }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="selectedDate != null && selectedStartTime != null" class="btn btn-secondary" type="button"
+    aria-haspopup="true" aria-expanded="false" (click)="sendRequest()">Отправить заявку</button>
+</div>

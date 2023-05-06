@@ -23,6 +23,13 @@ public class DetailController implements DetailApi {
     }
 
     @Override
+    @PutMapping("/{id}")
+    public void updateDetail(@RequestBody DetailDto dto,
+                             @PathVariable Long id) {
+
+    }
+
+    @Override
     @GetMapping("/add")
     public DetailAddResponse showSaveDetail() {
         return detailService.showSaveDetail();

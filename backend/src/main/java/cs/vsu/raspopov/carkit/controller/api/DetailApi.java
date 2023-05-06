@@ -8,6 +8,8 @@ public interface DetailApi {
 
     void saveDetail(DetailDto dto);
 
+    void updateDetail(DetailDto dto, Long id);
+
     DetailAddResponse showSaveDetail();
 
     DetailMileageDto getDetailsByMileage(Integer mileage, Long carId);

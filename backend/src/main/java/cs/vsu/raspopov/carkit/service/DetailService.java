@@ -12,6 +12,8 @@ public interface DetailService {
 
     void saveDetail(@NotNull DetailDto dto);
 
+    void updateDetail(@NotNull DetailDto dto, @NotNull Long id);
+
     DetailAddResponse showSaveDetail();
 
     DetailDto getById(@NotNull Long id);

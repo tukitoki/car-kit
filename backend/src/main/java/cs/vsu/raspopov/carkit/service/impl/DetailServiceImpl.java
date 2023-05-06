@@ -11,6 +11,7 @@ import cs.vsu.raspopov.carkit.repository.*;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,6 +51,19 @@ public class DetailServiceImpl implements DetailService {
             var detailReplacementId = new DetailReplacementId(detail.getId(), detailResponse.getId());
             detailReplacementRepo.save(new DetailReplacement(detailReplacementId));
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateDetail(DetailDto dto, Long id) {
+        Detail detail = getDetailById(id);
+        Detail newDetail = detailMapper.toEntity(dto);
+        detailReplacementRepo.findAllById_DetailId(id).forEach(detailReplacement -> {
+
+        });
+
+        BeanUtils.copyProperties(newDetail, detail, "id");
+
     }
 
     @Override
