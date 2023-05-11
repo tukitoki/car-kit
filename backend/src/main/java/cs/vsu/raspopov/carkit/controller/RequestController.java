@@ -22,11 +22,6 @@ public class RequestController {
         requestService.applyRequest(requestApply);
     }
 
-    @GetMapping("/send")
-    public void SendRequest(@RequestBody RequestDetailsMileage requestDetailsMileage) {
-//        requestService.applyRequest(requestApplyDto);
-    }
-
     @GetMapping("/apply")
     public RequestTimeResponse infoRequest(@RequestParam Long carId,
                                            @RequestParam List<Long> detailIds) {

@@ -62,7 +62,6 @@ export class MileageDetailsComponent {
     } else {
       this.detailIds.splice(this.detailIds.indexOf(id), 1);
     }
-    console.log(this.detailIds)
   }
 
   ifPresent(id: number | null) {

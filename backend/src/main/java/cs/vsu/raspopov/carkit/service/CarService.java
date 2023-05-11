@@ -5,6 +5,7 @@ import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsRequest;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsResponse;
 import cs.vsu.raspopov.carkit.dto.car.CarDto;
 import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
+import cs.vsu.raspopov.carkit.dto.page.PageModel;
 import cs.vsu.raspopov.carkit.entity.Car;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ public interface CarService {
 
     CarDto getCarById(@NotNull Long id);
 
-    List<BrandDto> getAllCars();
+    PageModel<BrandDto> getAllCars(int pageNumber, int pageSize, String brand, String model);
 
     Car getCar(@NotNull Long id);
 

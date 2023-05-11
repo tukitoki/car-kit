@@ -1,0 +1,31 @@
+<div>
+  <div>
+    <div class="name">
+      <select [(ngModel)]="selectedBrand" (change)="clearOnBrand($event)" class="form-select">
+        <option *ngFor="let brand of cars" [ngValue]="brand">{{ brand.brand }}</option>
+      </select>
+      <input [(ngModel)]="brand" name="brand" id="brand" required>
+      <button class="btn btn-outline-secondary" type="button" (click)="createBrand()">Add brand</button>
+    </div>
+    <div class="name" *ngIf="selectedBrand">
+      <select [(ngModel)]="selectedModel" (change)="clearOnModel($event)" class="form-select">
+        <option *ngFor="let model of selectedBrand.models" [ngValue]="model">{{ model.model }}</option>
+      </select>
+      <input [(ngModel)]="model" name="model" id="model" required>
+      <button class="btn btn-outline-secondary" type="button" (click)="createModel()">Add model</button>
+    </div>
+    <div *ngIf="selectedModel" class="name">
+      <label>Name: </label>
+      <input [(ngModel)]="car.modificationDto.name" name="name" id="name" required>
+      <label>Engine model: </label>
+      <input [(ngModel)]="car.modificationDto.engineModel" name="engine" id="engine" required>
+      <label>Year from: </label>
+      <input [(ngModel)]="car.modificationDto.yearFrom" type="number" name="year-to" id="year-to" required>
+      <label>Year to: </label>
+      <input [(ngModel)]="car.modificationDto.yearTo" type="number" name="year-from" id="year-from" required>
+    </div>
+  </div>
+  <button
+    *ngIf="car.modificationDto.name && car.modificationDto.engineModel && car.modificationDto.yearFrom && car.modificationDto.yearTo"
+    class="btn btn-outline-secondary" type="button" (click)="saveCar()">Add car</button>
+</div>

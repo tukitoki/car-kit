@@ -1,9 +1,8 @@
 package cs.vsu.raspopov.carkit.controller.api;
 
-import cs.vsu.raspopov.carkit.dto.car.CarDto;
 import cs.vsu.raspopov.carkit.dto.car.BrandDto;
-
-import java.util.List;
+import cs.vsu.raspopov.carkit.dto.car.CarDto;
+import cs.vsu.raspopov.carkit.dto.page.PageModel;
 
 public interface CarApi {
 
@@ -11,7 +10,5 @@ public interface CarApi {
 
     CarDto getCarById(Long id);
 
-    List<BrandDto> showSaveCar();
-
-    List<BrandDto> getAllCars();
+    PageModel<BrandDto> getAllCars(int pageNumber, int pageSize, String brand, String model);
 }

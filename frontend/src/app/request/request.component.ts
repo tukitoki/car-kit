@@ -35,7 +35,7 @@ export class RequestComponent {
   ngOnInit(): void {
     this.carService.getAllCars().subscribe({
       next: value => {
-        this.cars = value
+        this.cars = value.contents
       }
     })
   }

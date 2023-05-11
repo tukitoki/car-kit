@@ -1,17 +1,17 @@
 <div>
   <div class="select-brand">
     <select [(ngModel)]="brand" (change)="clearOnBrand($event)" class="form-select">
-      <option *ngFor="let car of cars" [ngValue]="car">{{ car.brand }}</option>
+      <option *ngFor="let car of cars" [ngValue]="car"> {{ car.brand }}</option>
     </select>
   </div>
   <div class="select-model">
     <select [(ngModel)]="model" class="form-select" (change)="clearOnModel($event)" *ngIf="brand !== undefined">
-      <option *ngFor="let ml of brand.models" [ngValue]="ml">{{ ml.model }}> </option>
+      <option *ngFor="let ml of brand.models" [ngValue]="ml"> {{ ml.model }} </option>
     </select>
   </div>
   <div class="select-modification">
     <select [(ngModel)]="modification" class="form-select" *ngIf="model">
-      <option *ngFor="let modif of model.modifications" [ngValue]="modif">{{ modif.name }}> </option>
+      <option *ngFor="let modif of model.modifications" [ngValue]="modif"> {{ modif.name }}> </option>
     </select>
   </div>
   <div class="mileage" *ngIf="modification">

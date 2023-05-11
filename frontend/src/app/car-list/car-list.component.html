@@ -1,0 +1,31 @@
+<div class="card my-5">
+  <div class="card-body">
+    <div class="form-floating mb-3">
+      <input [(ngModel)]="brand" (keyup)="findByBrand($event)" class="form-control" placeholder="Brand to find">
+    </div>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Brand</th>
+          <th scope="col">Model</th>
+          <th scope="col">Modification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let car of cars">
+          <ng-container *ngFor="let model of car.models">
+            <tr *ngFor="let modif of model.modifications">
+              <td>{{ car.brand }}</td>
+              <td>{{ model.model }}</td>
+              <td>{{ modif.name }}
+                <a (click)="addCarWork(modif.id)" class="clickable btn-delete">✎</a>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+    <app-pagination [page]="page" [paginationUrl]="[]">
+    </app-pagination>
+  </div>
+</div>

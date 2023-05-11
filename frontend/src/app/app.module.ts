@@ -10,6 +10,10 @@ import { RequestComponent } from './request/request.component';
 import { MileageDetailsComponent } from './request/mileage-details/mileage-details.component';
 import { DetailComponent } from './detail/detail.component';
 import { TimetableComponent } from './timetable/timetable.component';
+import { CarAddComponent } from './car-add/car-add.component';
+import { MaintenanceWorkAddComponent } from './maintenance-work-add/maintenance-work-add.component';
+import { CarListComponent } from './car-list/car-list.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { TimetableComponent } from './timetable/timetable.component';
     DetailComponent,
     RequestComponent,
     MileageDetailsComponent,
-    TimetableComponent
+    TimetableComponent,
+    CarAddComponent,
+    MaintenanceWorkAddComponent,
+    CarListComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

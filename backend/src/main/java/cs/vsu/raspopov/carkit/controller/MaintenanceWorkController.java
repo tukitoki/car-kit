@@ -15,7 +15,8 @@ public class MaintenanceWorkController implements MaintenanceWorkApi {
 
     @Override
     @PostMapping("/car/{id}")
-    public void addCarWork(@PathVariable Long id, @RequestBody MaintenanceWorkDto dto) {
+    public void addCarWork(@PathVariable Long id,
+                           @RequestBody MaintenanceWorkDto dto) {
         maintenanceWorkService.addCarWork(id, dto);
     }
 }
