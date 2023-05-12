@@ -26,4 +26,9 @@ export class DetailComponent {
       next: value => this.detail = value
     })
   }
+
+  toDetail(id: number | null, event: MouseEvent) {
+    event.preventDefault();
+    window.open("http://localhost:4200/api/detail/" + id);
+  }
 }

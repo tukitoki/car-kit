@@ -16,8 +16,8 @@ export class CarListComponent implements OnInit {
   cars!: BrandDto[];
   currPage: number = 1;
   currPageSize: number = 10;
-  @Input() brand!: string;
-  @Input() model!: string;
+  @Input() brand: string = ""
+  @Input() model: string = ""
 
   constructor(private carService: CarService,
     private router: Router,
@@ -33,21 +33,35 @@ export class CarListComponent implements OnInit {
       this.currPage = params['page'],
       this.currPageSize = params['size']
     })
-    this.carService.getAllCars().subscribe({
+    this.carService.getAllCars(this.currPage, this.currPageSize, this.brand, this.model).subscribe({
       next: value => {
         this.page = value;
         this.cars = this.page.contents;
         setTimeout(() => this.getAllFromServer(currPage, currPageSize, brand, model), 1000);
       }
     })
+    console.log(this.page)
   }
 
   addCarWork(id: number) {
     this.router.navigate([`api/work/car`], {queryParams: {id: id}})
   }
 
-  findByBrand(event: any) {
-
+  addDetailToCar(id: number) {
+    this.router.navigate([`api/car/add-details`], {queryParams: {id: id}})
   }
 
+  addMileageDetail(id: number) {
+    this.router.navigate([`api/car/mileage-details`], {queryParams: {id: id}})
+  }
+
+  findByBrand(event: any) {
+    console.log(this.brand)
+    this.carService.getAllCars(this.currPage, this.currPageSize, this.brand, this.model).subscribe({
+      next: value => {
+        this.page = value;
+        this.cars = this.page.contents;
+      }
+    })
+  }
 }

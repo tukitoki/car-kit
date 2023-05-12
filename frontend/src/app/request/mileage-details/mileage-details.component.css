@@ -11,3 +11,6 @@
   flex-direction: row;
   display: flex;
 }
+.list-group-item {
+  margin-left: 5px;
+}

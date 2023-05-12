@@ -8,5 +8,9 @@
     <p>Размерность: <span class="type">{{ detail.dimension }}</span></p>
     <p>Время доставки: <span class="type">{{ detail.timeToDelivery }}</span></p>
     <p>Цена: <span class="type">{{ detail.price }}</span></p>
+    <div *ngIf="detail.detailResponses && detail.detailResponses.length > 0">
+      <p>Детали-заменители:</p>
+      <a *ngFor="let det of detail.detailResponses" (click)="toDetail(det.id, $event)">{{ det.name }}</a>
+    </div>
   </div>
 </div>

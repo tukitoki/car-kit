@@ -11,7 +11,7 @@
   </div>
   <div class="select-modification">
     <select [(ngModel)]="modification" class="form-select" *ngIf="model">
-      <option *ngFor="let modif of model.modifications" [ngValue]="modif"> {{ modif.name }}> </option>
+      <option *ngFor="let modif of model.modifications" [ngValue]="modif"> {{ modif.name }} </option>
     </select>
   </div>
   <div class="mileage" *ngIf="modification">

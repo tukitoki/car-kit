@@ -1,7 +1,7 @@
-import { DetailResponse } from "./DetailResponse"
+import { DetailDto } from "./DetailDto"
 
 export interface DetailAddResponse {
   detailTypes: string[]
   dimensions: string[]
-  details: DetailResponse[]
+  details: DetailDto[]
 }

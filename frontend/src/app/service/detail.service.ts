@@ -27,6 +27,10 @@ export class DetailService {
     return this.httpClient.get<DetailDto>(`${this.url}/${id}`)
   }
 
+  public getAllDetails(): Observable<DetailDto[]> {
+    return this.httpClient.get<DetailDto[]>(`${this.url}/all`)
+  }
+
   public getDetailsByMileage(dto: DetailMileageRequest): Observable<DetailMileageDto> {
     let params = new HttpParams();
     if (dto.carId !== undefined && dto.mileage !== undefined) {

@@ -18,7 +18,9 @@
               <td>{{ car.brand }}</td>
               <td>{{ model.model }}</td>
               <td>{{ modif.name }}
-                <a (click)="addCarWork(modif.id)" class="clickable btn-delete">✎</a>
+                <a (click)="addMileageDetail(modif.id)" title="Добавить детали к замене при пробеге" class="clickable btn-delete">✔</a>
+                <a (click)="addCarWork(modif.id)" title="Добавить работы к машине" class="clickable btn-delete">✎</a>
+                <a (click)="addDetailToCar(modif.id)" title="Добавить детали к машине" class="clickable btn-delete">⇧⇩</a>
               </td>
             </tr>
           </ng-container>

@@ -10,3 +10,12 @@ td {
 .btn-delete {
   float: right;
 }
+
+input {
+  width: 100%;
+}
+input::placeholder {
+  font-weight: bold;
+  opacity: 0.5;
+  color: red;
+}

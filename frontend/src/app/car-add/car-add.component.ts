@@ -57,6 +57,7 @@ export class CarAddComponent {
         yearTo: this.car.modificationDto.yearTo
       }
     }).subscribe();
+    this.router.navigate([`api/cars`])
   }
 
   createBrand() {

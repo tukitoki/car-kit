@@ -11,7 +11,22 @@
     display: flex;
 }
 .info-block {
-    
     flex-direction: column;
     display: flex;
+}
+.checkbox-li {
+  display: inline-flexbox;
+  flex-direction: column;
+}
+.list-group-item {
+  margin-left: 5px;
+}
+.clickable {
+  cursor: pointer;
+}
+h2 {
+  margin-left: 2%;
+}
+.save-detail {
+  height: 150px;
 }
