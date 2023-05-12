@@ -1,1 +1,14 @@
-<p>maintenance-work-add works!</p>
+<div *ngIf="addResponse">
+  <select [(ngModel)]="dto.detailType" class="form-select">
+    <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
+  </select>
+  <select [(ngModel)]="dto.dimension" class="form-select">
+    <option *ngFor="let dimension of addResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
+  </select>
+  <div class="timeToChange">
+    <label>Time to change: </label>
+    <input [(ngModel)]="dto.timeToChange" name="timeToChange" id="timeToChange" required>
+  </div>
+  <button *ngIf="dto.detailType && dto.dimension && dto.timeToChange" class="btn btn-outline-secondary" type="button"
+    (click)="sendWork()">Add dimension</button>
+</div>

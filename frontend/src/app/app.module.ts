@@ -14,6 +14,8 @@ import { CarAddComponent } from './car-add/car-add.component';
 import { MaintenanceWorkAddComponent } from './maintenance-work-add/maintenance-work-add.component';
 import { CarListComponent } from './car-list/car-list.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { MileageDetailsAddComponent } from './mileage-details-add/mileage-details-add.component';
+import { CarAddDetailComponent } from './car-add-detail/car-add-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     CarAddComponent,
     MaintenanceWorkAddComponent,
     CarListComponent,
-    PaginationComponent
+    PaginationComponent,
+    MileageDetailsAddComponent,
+    CarAddDetailComponent
   ],
   imports: [
     BrowserModule,

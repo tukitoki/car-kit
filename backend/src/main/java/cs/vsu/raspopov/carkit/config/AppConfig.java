@@ -38,24 +38,29 @@ public class AppConfig {
         });
     }
 
-//    @Bean
-//    public void initShop() {
-//        var scheduleList = new ArrayList<Schedule>();
-//        scheduleList.add(Schedule.builder()
-//                .date(LocalDate.now())
-//                .startWorkTime(LocalTime.parse(startTimeWork))
-//                .endWorkTime(LocalTime.parse(endTimeWork))
-//                .build());
-//        scheduleList.add(Schedule.builder()
-//                .date(LocalDate.now().plusDays(1))
-//                .startWorkTime(LocalTime.parse(startTimeWork))
-//                .endWorkTime(LocalTime.parse(endTimeWork))
-//                .build());
-//        var shop = AutoRepairShop.builder()
-//                .name("master")
-//                .address("dfgfdg")
-//                .schedule(scheduleList)
-//                .build();
-//        autoRepairShopRepo.save(shop);
-//    }
+    @Bean
+    public void initShop() {
+        if (autoRepairShopRepo.findById(1L).isPresent()) {
+            return;
+        }
+        var scheduleList = new ArrayList<Schedule>();
+        scheduleList.add(Schedule.builder()
+                .date(LocalDate.now())
+                .startWorkTime(LocalTime.parse(startTimeWork))
+                .endWorkTime(LocalTime.parse(endTimeWork))
+                .build());
+        for (var plusDate = 1; plusDate <= 14; plusDate++) {
+            scheduleList.add(Schedule.builder()
+                    .date(LocalDate.now().plusDays(plusDate))
+                    .startWorkTime(LocalTime.parse(startTimeWork))
+                    .endWorkTime(LocalTime.parse(endTimeWork))
+                    .build());
+        }
+        var shop = AutoRepairShop.builder()
+                .name("master")
+                .address("dfgfdg")
+                .schedule(scheduleList)
+                .build();
+        autoRepairShopRepo.save(shop);
+    }
 }

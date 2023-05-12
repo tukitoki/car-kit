@@ -1,0 +1,24 @@
+<div>
+  <div *ngFor="let mileage of detailsMileages, index as i">
+    <select *ngIf="indexMileage - 1 == i" [(ngModel)]="detailsMileages[i].detailType" class="form-select">
+      <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
+    </select>
+    <select *ngIf="indexMileage - 1 != i" disabled [(ngModel)]="detailsMileages[i].detailType" class="form-select">
+      <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
+    </select>
+    <div *ngIf="indexMileage - 1 == i">
+      <label>Mileage: </label>
+      <input [(ngModel)]="detailsMileages[i].mileage" type="number" name="timeToChange" id="timeToChange" required>
+      <a (click)="deleteMileageDetail()" class="btn-delete clickable">✖</a>
+    </div>
+    <div *ngIf="indexMileage - 1 != i">
+      <label>Mileage: </label>
+      <input disabled [(ngModel)]="detailsMileages[i].mileage" type="number" name="timeToChange" id="timeToChange" required>
+      <a (click)="deleteMileageDetail()" class="btn-delete clickable">✖</a>
+    </div>
+  </div>
+  <button class="btn btn-outline-secondary" type="button"
+  (click)="addMileageDetail()">Add detail mileage</button>
+  <button *ngIf="detailsMileages.length > 0" class="btn btn-outline-secondary" type="button"
+  (click)="sendDetails()">Send details</button>
+</div>

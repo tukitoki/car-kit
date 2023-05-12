@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -67,23 +68,30 @@ public class DetailServiceImpl implements DetailService {
     }
 
     @Override
+    public List<DetailDto> getAllDetails() {
+        List<DetailDto> detailDtos = new LinkedList<>();
+        detailRepo.findAll().forEach(detail -> {
+            detailDtos.add(detailMapper.toDto(detail, null));
+        });
+
+        return detailDtos;
+    }
+
+    @Override
     public DetailAddResponse showSaveDetail() {
-        ArrayList<String> types = new ArrayList<>();
+        List<String> types = new ArrayList<>();
         detailTypeRepo.findAll().forEach(detailType -> {
             types.add(detailType.getDisplayName());
         });
 
-        ArrayList<String> dimensions = new ArrayList<>();
+        List<String> dimensions = new ArrayList<>();
         dimensionRepo.findAll().forEach(dimension -> {
             dimensions.add(dimension.getDimensionName());
         });
 
-        ArrayList<DetailResponse> detailResponses = new ArrayList<>();
+        List<DetailDto> detailResponses = new ArrayList<>();
         detailRepo.findAll().forEach(detail -> {
-            detailResponses.add(DetailResponse.builder()
-                    .id(detail.getId())
-                    .name(detail.getName())
-                    .build());
+            detailResponses.add(detailMapper.toDto(detail, null));
         });
         return DetailAddResponse.builder()
                 .details(detailResponses)

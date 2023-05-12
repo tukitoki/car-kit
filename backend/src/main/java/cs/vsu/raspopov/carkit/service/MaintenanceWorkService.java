@@ -1,5 +1,6 @@
 package cs.vsu.raspopov.carkit.service;
 
+import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceAddResponse;
 import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceWorkDto;
 import cs.vsu.raspopov.carkit.entity.MaintenanceWork;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,8 @@ import java.time.LocalTime;
 public interface MaintenanceWorkService {
 
     void addCarWork(@NotNull Long id, @NotNull MaintenanceWorkDto dto);
+
+    MaintenanceAddResponse showAddCarWork();
 
     MaintenanceWork getMaintenanceWork(@NotNull Long carId, @NotNull Long detailTypeId);
 

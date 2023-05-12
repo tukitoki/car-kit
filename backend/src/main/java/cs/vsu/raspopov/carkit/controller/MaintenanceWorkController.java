@@ -1,6 +1,7 @@
 package cs.vsu.raspopov.carkit.controller;
 
 import cs.vsu.raspopov.carkit.controller.api.MaintenanceWorkApi;
+import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceAddResponse;
 import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceWorkDto;
 import cs.vsu.raspopov.carkit.service.MaintenanceWorkService;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,11 @@ public class MaintenanceWorkController implements MaintenanceWorkApi {
     public void addCarWork(@PathVariable Long id,
                            @RequestBody MaintenanceWorkDto dto) {
         maintenanceWorkService.addCarWork(id, dto);
+    }
+
+    @Override
+    @GetMapping("/car")
+    public MaintenanceAddResponse showAddCarWork() {
+        return maintenanceWorkService.showAddCarWork();
     }
 }

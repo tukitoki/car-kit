@@ -1,5 +1,6 @@
 package cs.vsu.raspopov.carkit.service.impl;
 
+import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceAddResponse;
 import cs.vsu.raspopov.carkit.dto.maintenance_work.MaintenanceWorkDto;
 import cs.vsu.raspopov.carkit.entity.Dimension;
 import cs.vsu.raspopov.carkit.entity.MaintenanceWork;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.util.LinkedList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -34,6 +37,24 @@ public class MaintenanceWorkServiceImpl implements MaintenanceWorkService {
 
         var work = maintenanceWorkMapper.toEntity(dto, dimension, car.getId(), detailType.getId());
         maintenanceWorkRepo.save(work);
+    }
+
+    @Override
+    public MaintenanceAddResponse showAddCarWork() {
+        List<String> types = new LinkedList<>();
+        detailTypeRepo.findAll().forEach(detailType -> {
+            types.add(detailType.getDisplayName());
+        });
+
+        List<String> dimensions = new LinkedList<>();
+        dimensionRepo.findAll().forEach(dimension -> {
+            dimensions.add(dimension.getDimensionName());
+        });
+
+        return MaintenanceAddResponse.builder()
+                .detailTypes(types)
+                .dimensions(dimensions)
+                .build();
     }
 
     @Override

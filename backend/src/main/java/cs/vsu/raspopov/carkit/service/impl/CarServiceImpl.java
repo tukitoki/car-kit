@@ -1,13 +1,11 @@
 package cs.vsu.raspopov.carkit.service.impl;
 
 import cs.vsu.raspopov.carkit.dto.car.*;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
 import cs.vsu.raspopov.carkit.dto.page.PageModel;
 import cs.vsu.raspopov.carkit.entity.*;
-import cs.vsu.raspopov.carkit.mapper.BrandMapper;
-import cs.vsu.raspopov.carkit.mapper.CarMapper;
-import cs.vsu.raspopov.carkit.mapper.ModelMapper;
-import cs.vsu.raspopov.carkit.mapper.ModificationMapper;
+import cs.vsu.raspopov.carkit.mapper.*;
 import cs.vsu.raspopov.carkit.repository.*;
 import cs.vsu.raspopov.carkit.service.CarService;
 import cs.vsu.raspopov.carkit.service.DetailService;
@@ -33,6 +31,7 @@ public class CarServiceImpl implements CarService {
     private final BrandMapper brandMapper;
     private final ModelMapper modelMapper;
     private final ModificationMapper modificationMapper;
+    private final DetailMapper detailMapper;
     private final CarRepo carRepo;
     private final BrandRepo brandRepo;
     private final ModelRepo modelRepo;
@@ -122,6 +121,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<DetailDto> getCarDetails(Long id) {
+        var car = getCar(id);
+        List<DetailDto> details = new LinkedList<>();
+        car.getModification().getDetails().forEach(detail -> {
+            details.add(detailMapper.toDto(detail, null));
+        });
+        return details;
+    }
+
+    @Override
     @Transactional
     public void addMileageDetails(List<DetailMileageAdd> dto, Long id) {
         var car = getCar(id);
@@ -175,7 +184,7 @@ public class CarServiceImpl implements CarService {
 
         Root<Car> root = query.from(Car.class);
         Join<Car, Brand> brands = root.join("brand");
-        Join<Car, Model> models = root.join("brand");
+        Join<Car, Model> models = root.join("model");
 
         query.select(root).distinct(true);
 
@@ -208,15 +217,15 @@ public class CarServiceImpl implements CarService {
 
         Root<Car> root = query.from(Car.class);
         Join<Car, Brand> brands = root.join("brand");
-        Join<Car, Model> models = root.join("brand");
+        Join<Car, Model> models = root.join("model");
 
         query.select(cb.countDistinct(root));
 
         List<Predicate> predicates = new ArrayList<>();
-        if (brand != null) {
+        if (brand != null && !brand.equals("")) {
             predicates.add(cb.equal(brands.get("name"), brand));
         }
-        if (model != null) {
+        if (model != null && !model.equals("")) {
             predicates.add(cb.equal(models.get("name"), model));
         }
 

@@ -4,6 +4,7 @@ import cs.vsu.raspopov.carkit.dto.car.BrandDto;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsRequest;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsResponse;
 import cs.vsu.raspopov.carkit.dto.car.CarDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
 import cs.vsu.raspopov.carkit.dto.page.PageModel;
 import cs.vsu.raspopov.carkit.entity.Car;
@@ -22,6 +23,8 @@ public interface CarService {
     PageModel<BrandDto> getAllCars(int pageNumber, int pageSize, String brand, String model);
 
     Car getCar(@NotNull Long id);
+
+    List<DetailDto> getCarDetails(@NotNull Long id);
 
     void addMileageDetails(@NotNull List<DetailMileageAdd> dto, @NotNull Long id);
 

@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { BrandDto } from '../entity/BrandDto';
 import { CarDto } from '../entity/CarDto';
 import { Page } from '../entity/Page';
+import { DetailMileageAdd } from '../entity/DetailMileageAdd';
+import { CarAddDetailsRequest } from '../entity/CarAddDetailsRequest';
+import { DetailDto } from '../entity/DetailDto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +30,22 @@ export class CarService {
   }
 
   public getCarById(id: number): Observable<CarDto> {
-    return this.httpClient.get<CarDto>(`${this.url}/${id}`)
+    return this.httpClient.get<CarDto>(`${this.url}/${id}`);
+  }
+
+  public getCarDetails(carId: number): Observable<DetailDto[]> {
+    return this.httpClient.get<DetailDto[]>(`${this.url}/${carId}/details`)
+  }
+
+  public addDetailsToCar(carId: number, dto: CarAddDetailsRequest) {
+    return this.httpClient.post(`${this.url}/${carId}/add-details`, dto)
   }
 
   public saveCar(car: CarDto) {
-    return this.httpClient.post(`${this.url}`, car)
+    return this.httpClient.post(`${this.url}`, car);
+  }
+
+  public addMileageDetails(id: number, details: DetailMileageAdd[]) {
+    return this.httpClient.post(`${this.url}/${id}/add-mileage`, details);
   }
 }

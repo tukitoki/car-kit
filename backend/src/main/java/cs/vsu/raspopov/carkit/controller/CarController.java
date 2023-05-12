@@ -5,6 +5,7 @@ import cs.vsu.raspopov.carkit.dto.car.BrandDto;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsRequest;
 import cs.vsu.raspopov.carkit.dto.car.CarAddDetailsResponse;
 import cs.vsu.raspopov.carkit.dto.car.CarDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.DetailMileageAdd;
 import cs.vsu.raspopov.carkit.dto.page.PageModel;
 import cs.vsu.raspopov.carkit.service.CarService;
@@ -39,6 +40,11 @@ public class CarController implements CarApi {
     @GetMapping("/{id}")
     public CarDto getCarById(@PathVariable Long id) {
         return carService.getCarById(id);
+    }
+
+    @GetMapping("/{id}/details")
+    public List<DetailDto> getCarDetails(@PathVariable Long id) {
+        return carService.getCarDetails(id);
     }
 
     @PostMapping("/{id}/add-details")

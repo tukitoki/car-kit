@@ -1,6 +1,6 @@
 <div class="detail-add">
-  <div class="selects-block">
-    <select [(ngModel)]="detail.detailType" class="form-select">
+  <div class="selects-block" *ngIf="detailAddResponse">
+    <select [(ngModel)]="detail.detailType" (change)="filterReplaces($event)" class="form-select">
       <option *ngFor="let detailType of detailAddResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
     </select>
     <div class="dimension-block">
@@ -10,9 +10,16 @@
       <input [(ngModel)]="dimens" name="dimension" id="dimension" required>
       <button class="btn btn-outline-secondary" type="button" (click)="createDimension()">Add dimension</button>
     </div>
-    <select class="form-select">
-      <option *ngFor="let detail of detailAddResponse.details">{{ detail.name }}</option>
-    </select>
+    <div *ngIf="showedDetails && showedDetails.length > 0">
+      <h2>Выберите детали для добавки в замены</h2>
+      <div *ngFor="let det of showedDetails" class="checkbox-li">
+        <input input class="form-check-input" [checked]="ifPresent(det.id)" (click)="checkSelected($event, det.id)"
+        type="checkbox">
+        <a class="list-group-item clickable" (click)="toDetail(det.id, $event)">
+          {{ det.name }} - {{ det.detailType }} {{ det.dimension }}
+        </a>
+      </div>
+    </div>
   </div>
   <div class="info-block">
     <div class="name">
@@ -36,5 +43,5 @@
       <input [(ngModel)]="detail.price" name="price" id="price" required>
     </div>
   </div>
-  <button class="btn btn-outline-secondary" type="button" (click)="saveDetail()">Add detail</button>
+  <button class="save-detail btn btn-outline-secondary" type="button" (click)="saveDetail()">Add detail</button>
 </div>

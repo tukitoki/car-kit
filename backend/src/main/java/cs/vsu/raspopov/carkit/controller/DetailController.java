@@ -9,6 +9,8 @@ import cs.vsu.raspopov.carkit.service.DetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/api/detail")
 @RestController
@@ -27,6 +29,11 @@ public class DetailController implements DetailApi {
     public void updateDetail(@RequestBody DetailDto dto,
                              @PathVariable Long id) {
 
+    }
+
+    @GetMapping("/all")
+    public List<DetailDto> getAllDetails() {
+        return detailService.getAllDetails();
     }
 
     @Override
