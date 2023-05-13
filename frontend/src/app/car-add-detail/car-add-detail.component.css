@@ -1,0 +1,12 @@
+.checkbox-li {
+  display: inline-flex;
+}
+.list-group-item {
+  margin-left: 5px;
+}
+.clickable {
+  cursor: pointer;
+}
+h2 {
+  margin-left: 2%;
+}

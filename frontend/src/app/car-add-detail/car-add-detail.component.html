@@ -1,0 +1,14 @@
+<div>
+  <h2>Детали для добавления:</h2>
+  <ul *ngFor="let det of details">
+    <div class="checkbox-li">
+      <input class="form-check-input" [checked]="ifPresent(det.id)" (click)="checkSelected($event, det.id)"
+        type="checkbox">
+      <a class="list-group-item clickable" (click)="toDetail(det.id, $event)">
+        {{ det.name }} - {{ det.detailType }} {{ det.dimension }}
+      </a>
+    </div>
+  </ul>
+  <button *ngIf="detailToSend.detailIds.length > 0" class="btn btn-outline-secondary" type="button"
+  (click)="sendDetails()">Add detail mileage</button>
+</div>
