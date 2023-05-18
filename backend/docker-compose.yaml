@@ -4,7 +4,7 @@ services:
     image: postgres:alpine
     container_name: carkit
     ports:
-      - "5432:5432"
+      - "5400:5400"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -21,7 +21,7 @@ services:
     depends_on:
       - carkit
     environment:
-      - DB_URL=jdbc:postgresql://carkit:5432/carkit
+      - DB_URL=jdbc:postgresql://carkit:5400/carkit
       - DB_USER=postgres
       - DB_PASS=postgres
 
