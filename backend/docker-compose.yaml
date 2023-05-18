@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:alpine
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=car_kit
+    volumes:
+      - data:/tukitoki/db
+  backend:
+    container_name: backend
+    restart: always
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/car_kit
+      - DB_USER=postgres
+      - DB_PASS=postgres
+
+volumes:
+  data:

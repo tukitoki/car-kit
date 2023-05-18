@@ -1,0 +1,34 @@
+name: JavaCI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  devflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - uses: okteto/context@latest
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+
+      - name: "Build"
+        uses: okteto/build@latest
+
+      - name: "Destroy the pipeline"
+        uses: okteto/destroy-pipeline@latest
+        with:
+          name: car-kit-back
+
+      - name: "Trigger the pipeline"
+        uses: okteto/pipeline@latest
+        with:
+          name: car-kit-back
+          timeout: 8m
+          skipIfExists: true
