@@ -12,7 +12,7 @@ export class DetailService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = 'http://localhost:8080/api/detail'
+    this.url = 'https://backend-tukitoki.cloud.okteto.net/api/detail'
   }
 
   public showSaveDetail(): Observable<DetailAddResponse> {

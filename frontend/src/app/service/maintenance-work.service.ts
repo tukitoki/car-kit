@@ -12,7 +12,7 @@ export class MaintenanceWorkService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = "http://localhost:8080/api/work"
+    this.url = "https://backend-tukitoki.cloud.okteto.net/api/work"
   }
 
   addCarWork(id: number, dto: MaintenanceWorkDto) {

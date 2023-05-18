@@ -16,7 +16,7 @@ export class CarService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = 'http://localhost:8080/api/car'
+    this.url = 'https://backend-tukitoki.cloud.okteto.net/api/car'
   }
 
   public getAllCars(currPage: number = 1, currPageSize: number = 10, brand: string = '', model: string = ''): Observable<Page<BrandDto>> {
