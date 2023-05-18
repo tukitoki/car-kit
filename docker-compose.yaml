@@ -4,7 +4,7 @@ services:
     image: postgres:alpine
     container_name: car_kit
     ports:
-      - "5400:5400"
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -21,7 +21,7 @@ services:
     depends_on:
       - car_kit
     environment:
-      - DB_URL=jdbc:postgresql://car_kit:5400/car_kit
+      - DB_URL=jdbc:postgresql://car_kit:5432/car_kit
       - DB_USER=postgres
       - DB_PASS=postgres
   frontend:
