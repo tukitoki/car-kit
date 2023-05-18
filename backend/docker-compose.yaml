@@ -1,16 +1,16 @@
 version: "3.9"
 services:
-  db:
+  carkit:
     image: postgres:alpine
-    container_name: db
+    container_name: carkit
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=car_kit
+      - POSTGRES_DB=carkit
     volumes:
-      - data:/tukitoki/db
+      - data:/tukitoki/carkitdb
   backend:
     container_name: backend
     restart: always
@@ -19,9 +19,9 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - carkit
     environment:
-      - DB_URL=jdbc:postgresql://db:5432/car_kit
+      - DB_URL=jdbc:postgresql://carkit:5432/carkit
       - DB_USER=postgres
       - DB_PASS=postgres
 

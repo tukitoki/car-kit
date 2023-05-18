@@ -24,11 +24,11 @@ jobs:
       - name: "Destroy the pipeline"
         uses: okteto/destroy-pipeline@latest
         with:
-          name: car-kit-back
+          name: car-kit
 
       - name: "Trigger the pipeline"
         uses: okteto/pipeline@latest
         with:
-          name: car-kit-back
+          name: car-kit
           timeout: 8m
           skipIfExists: true
