@@ -3,7 +3,8 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN npm run build --configuration=production
+RUN npm install -g @angular/cli
+RUN ng build --configuration production --output-path=/dist
 
 FROM nginx:1.23-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
