@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { DetailAddResponse } from '../entity/DetailAddResponse';
 import { DetailMileageRequest } from '../entity/DetailMileageRequest';
 import { DetailMileageDto } from '../entity/DetailMileageDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DetailService {
@@ -12,7 +13,7 @@ export class DetailService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = 'https://backend-tukitoki.cloud.okteto.net/api/detail'
+    this.url = `${environment.baseUrl}/api/detail`
   }
 
   public showSaveDetail(): Observable<DetailAddResponse> {

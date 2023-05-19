@@ -7,6 +7,7 @@ import { Page } from '../entity/Page';
 import { DetailMileageAdd } from '../entity/DetailMileageAdd';
 import { CarAddDetailsRequest } from '../entity/CarAddDetailsRequest';
 import { DetailDto } from '../entity/DetailDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CarService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = 'https://backend-tukitoki.cloud.okteto.net/api/car'
+    this.url = `${environment.baseUrl}/api/car`
   }
 
   public getAllCars(currPage: number = 1, currPageSize: number = 10, brand: string = '', model: string = ''): Observable<Page<BrandDto>> {

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { MaintenanceAddResponse } from '../entity/MaintenanceAddResponse';
 import { HttpClient } from '@angular/common/http';
 import { MaintenanceWorkDto } from '../entity/MaintenanceWorkDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class MaintenanceWorkService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = "https://backend-tukitoki.cloud.okteto.net/api/work"
+    this.url = `${environment.baseUrl}/api/work`
   }
 
   addCarWork(id: number, dto: MaintenanceWorkDto) {

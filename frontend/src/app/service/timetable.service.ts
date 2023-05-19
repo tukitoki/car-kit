@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RequestTimeResponse } from '../entity/RequestTimeResponse';
 import { RequestApplyResponse } from '../entity/RequestApplyResponse';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class TimetableService {
   private url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = 'https://backend-tukitoki.cloud.okteto.net/api/request'
+    this.url = `${environment.baseUrl}/api/request`
   }
 
   public sendRequest(requestApply: RequestApplyResponse) {
