@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { DetailService } from '../service/detail.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DetailDto } from '../entity/DetailDto';
-import { CarAddDetailsRequest } from '../entity/CarAddDetailsRequest';
+import { DetailDto } from '../entity/detail/DetailDto';
+import { CarAddDetailsRequest } from '../entity/car/CarAddDetailsRequest';
 import { CarService } from '../service/car.service';
+import { AuthService } from '../service/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-car-add-detail',
@@ -19,12 +21,20 @@ export class CarAddDetailComponent {
   carId!: number;
 
   constructor(private detailService: DetailService,
+    private authService: AuthService,
     private carService: CarService,
     private router: Router,
     private activatedRt: ActivatedRoute) {
 }
 
   ngOnInit(): void {
+    if (this.authService.username.getValue() == null) {
+      Swal.fire("Login to see this page").then(() => this.router.navigate(['/login']));
+      return;
+    } else if (!this.authService.checkAuthoritiy('CARS_EDIT')) {
+      Swal.fire("U can't access this page").then(() => this.router.navigate(['/main']))
+      return;
+    }
     this.detailService.getAllDetails().subscribe({
       next: value => this.details = value
     })
@@ -48,7 +58,7 @@ export class CarAddDetailComponent {
 
   toDetail(id: number | null, event: MouseEvent) {
     event.preventDefault();
-    window.open("http://localhost:4200/api/detail/" + id);
+    window.open("http://localhost:4200/detail/" + id);
   }
 
   checkSelected(event: any, id: number | null) {
@@ -66,6 +76,6 @@ export class CarAddDetailComponent {
 
   sendDetails() {
     this.carService.addDetailsToCar(this.carId, this.detailToSend).subscribe();
-    this.router.navigate([`api/cars`])
+    this.router.navigate([`cars`])
   }
 }

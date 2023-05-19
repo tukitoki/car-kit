@@ -16,6 +16,9 @@ import { CarListComponent } from './car-list/car-list.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { MileageDetailsAddComponent } from './mileage-details-add/mileage-details-add.component';
 import { CarAddDetailComponent } from './car-add-detail/car-add-detail.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { CarAddDetailComponent } from './car-add-detail/car-add-detail.component
     CarListComponent,
     PaginationComponent,
     MileageDetailsAddComponent,
-    CarAddDetailComponent
+    CarAddDetailComponent,
+    LoginComponent,
+    HeaderComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrandDto } from '../entity/BrandDto';
-import { DetailMileageRequest } from '../entity/DetailMileageRequest';
-import { ModelDto } from '../entity/ModelDto';
-import { ModificationDto } from '../entity/ModificationDto';
+import { BrandDto } from '../entity/car/BrandDto';
+import { DetailMileageRequest } from '../entity/detail/DetailMileageRequest';
+import { ModelDto } from '../entity/car/ModelDto';
+import { ModificationDto } from '../entity/car/ModificationDto';
 import { CarService } from '../service/car.service';
 import { DetailService } from '../service/detail.service';
-import { DetailMileageDto } from '../entity/DetailMileageDto';
+import { DetailMileageDto } from '../entity/detail/DetailMileageDto';
 
 @Component({
   selector: 'app-request',

@@ -11,3 +11,14 @@ spring:
 repair-shop:
   startTimeWork: "08:00"
   endTimeWork: "19:00"
+
+jwt:
+  secret-key: ${PRIVATE_KEY:fe1501ba654b1adfaf05cc4195680bd04d6aa2afea771b30e9db3956cc411324}
+  access-validity: 3600000
+  refresh-validity: 86400000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs

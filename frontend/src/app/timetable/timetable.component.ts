@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestTimeResponse } from '../entity/RequestTimeResponse';
-import { RequestTime } from '../entity/RequestTime';
+import { RequestTimeResponse } from '../entity/request/RequestTimeResponse';
+import { RequestTime } from '../entity/request/RequestTime';
 import { TimetableService } from '../service/timetable.service';
-import { RequestApplyResponse } from '../entity/RequestApplyResponse';
+import { RequestApplyResponse } from '../entity/request/RequestApplyResponse';
 
 @Component({
   selector: 'app-timetable',

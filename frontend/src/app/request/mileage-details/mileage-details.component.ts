@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { DetailMileageDto } from '../../entity/DetailMileageDto';
+import { DetailMileageDto } from '../../entity/detail/DetailMileageDto';
 import { DetailService } from '../../service/detail.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DetailDto } from 'src/app/entity/DetailDto';
+import { DetailDto } from 'src/app/entity/detail/DetailDto';
 import { TimetableService } from 'src/app/service/timetable.service';
-import { RequestTimeResponse } from 'src/app/entity/RequestTimeResponse';
-import { RequestTime } from 'src/app/entity/RequestTime';
+import { RequestTimeResponse } from 'src/app/entity/request/RequestTimeResponse';
+import { RequestTime } from 'src/app/entity/request/RequestTime';
 
 @Component({
   selector: 'app-mileage-details',

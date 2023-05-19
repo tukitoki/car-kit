@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MaintenanceWorkService } from '../service/maintenance-work.service';
-import { MaintenanceWorkDto } from '../entity/MaintenanceWorkDto';
 import { MaintenanceAddResponse } from '../entity/MaintenanceAddResponse';
+import { MaintenanceWorkDto } from '../entity/MaintenanceWorkDto';
+import { AuthService } from '../service/auth.service';
+import { MaintenanceWorkService } from '../service/maintenance-work.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-maintenance-work-add',
@@ -16,11 +18,19 @@ export class MaintenanceWorkAddComponent implements OnInit {
   addResponse!: MaintenanceAddResponse;
 
   constructor(private maintService: MaintenanceWorkService,
+    private authService: AuthService,
     private router: Router,
     private activatedRt: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    if (this.authService.username.getValue() == null) {
+      Swal.fire("Login to see this page").then(() => this.router.navigate(['/login']));
+      return;
+    } else if (!this.authService.checkAuthoritiy('MAINT_WORK')) {
+      Swal.fire("U can't access this page").then(() => this.router.navigate(['/main']))
+      return;
+    }
     this.activatedRt.queryParams.subscribe(params => {
       this.carId = params['id']
     })
@@ -38,6 +48,6 @@ export class MaintenanceWorkAddComponent implements OnInit {
 
   sendWork() {
     this.maintService.addCarWork(this.carId, this.dto).subscribe();
-    this.router.navigate([`api/cars`])
+    this.router.navigate([`cars`])
   }
 }

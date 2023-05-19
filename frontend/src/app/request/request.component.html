@@ -1,6 +1,6 @@
 <div>
   <div class="select-brand">
-    <select [(ngModel)]="brand" (change)="clearOnBrand($event)" class="form-select">
+    <select [(ngModel)]="brand" (change)="clearOnBrand($event)" class="brand form-select">
       <option *ngFor="let car of cars" [ngValue]="car"> {{ car.brand }}</option>
     </select>
   </div>

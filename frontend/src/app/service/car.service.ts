@@ -1,13 +1,14 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BrandDto } from '../entity/BrandDto';
-import { CarDto } from '../entity/CarDto';
+import { BrandDto } from '../entity/car/BrandDto';
+import { CarDto } from '../entity/car/CarDto';
 import { Page } from '../entity/Page';
-import { DetailMileageAdd } from '../entity/DetailMileageAdd';
-import { CarAddDetailsRequest } from '../entity/CarAddDetailsRequest';
-import { DetailDto } from '../entity/DetailDto';
+import { DetailMileageAdd } from '../entity/detail/DetailMileageAdd';
+import { CarAddDetailsRequest } from '../entity/car/CarAddDetailsRequest';
+import { DetailDto } from '../entity/detail/DetailDto';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class CarService {
 
   private url: string;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private authService: AuthService) {
     this.url = `${environment.baseUrl}/api/car`
   }
 
@@ -27,26 +29,32 @@ export class CarService {
       'brand': brand,
       'modle': model
     };
-    return this.httpClient.get<Page<BrandDto>>(`${this.url}/all`, { params: params });
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    return this.httpClient.get<Page<BrandDto>>(`${this.url}/all`, { params: params , headers: headers });
   }
 
   public getCarById(id: number): Observable<CarDto> {
-    return this.httpClient.get<CarDto>(`${this.url}/${id}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    return this.httpClient.get<CarDto>(`${this.url}/${id}`, { headers: headers });
   }
 
   public getCarDetails(carId: number): Observable<DetailDto[]> {
-    return this.httpClient.get<DetailDto[]>(`${this.url}/${carId}/details`)
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    return this.httpClient.get<DetailDto[]>(`${this.url}/${carId}/details`, { headers: headers })
   }
 
   public addDetailsToCar(carId: number, dto: CarAddDetailsRequest) {
-    return this.httpClient.post(`${this.url}/${carId}/add-details`, dto)
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    return this.httpClient.post(`${this.url}/${carId}/add-details`, dto, { headers: headers })
   }
 
   public saveCar(car: CarDto) {
-    return this.httpClient.post(`${this.url}`, car);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    return this.httpClient.post(`${this.url}`, car, {headers: headers});
   }
 
   public addMileageDetails(id: number, details: DetailMileageAdd[]) {
-    return this.httpClient.post(`${this.url}/${id}/add-mileage`, details);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    return this.httpClient.post(`${this.url}/${id}/add-mileage`, details, { headers: headers });
   }
 }

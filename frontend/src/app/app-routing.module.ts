@@ -8,16 +8,20 @@ import { MaintenanceWorkAddComponent } from './maintenance-work-add/maintenance-
 import { CarListComponent } from './car-list/car-list.component';
 import { MileageDetailsAddComponent } from './mileage-details-add/mileage-details-add.component';
 import { CarAddDetailComponent } from './car-add-detail/car-add-detail.component';
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: 'api/detail/add', component: DetailAddComponent },
-  { path: 'api/request', component: RequestComponent },
-  { path: 'api/detail/:id', component: DetailComponent },
-  { path: 'api/car', component: CarAddComponent },
-  { path: 'api/work/car', component: MaintenanceWorkAddComponent },
-  { path: 'api/cars', component: CarListComponent },
-  { path: 'api/car/mileage-details', component: MileageDetailsAddComponent },
-  { path: 'api/car/add-details', component: CarAddDetailComponent }
+  { path: 'detail/add', component: DetailAddComponent },
+  { path: 'request', component: RequestComponent },
+  { path: 'detail/:id', component: DetailComponent },
+  { path: 'car', component: CarAddComponent },
+  { path: 'work/car', component: MaintenanceWorkAddComponent },
+  { path: 'cars', component: CarListComponent },
+  { path: 'car/mileage-details', component: MileageDetailsAddComponent },
+  { path: 'car/add-details', component: CarAddDetailComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'main', component: MainComponent },
 ];
 
 @NgModule({

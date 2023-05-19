@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DetailDto } from '../entity/DetailDto';
+import { DetailDto } from '../entity/detail/DetailDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailService } from '../service/detail.service';
 
@@ -29,6 +29,6 @@ export class DetailComponent {
 
   toDetail(id: number | null, event: MouseEvent) {
     event.preventDefault();
-    window.open("http://localhost:4200/api/detail/" + id);
+    window.open("http://localhost:4200/detail/" + id);
   }
 }

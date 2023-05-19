@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DetailAddResponse } from '../entity/DetailAddResponse';
+import { DetailAddResponse } from '../entity/detail/DetailAddResponse';
 import { DetailService } from '../service/detail.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DetailDto } from '../entity/DetailDto';
+import { DetailDto } from '../entity/detail/DetailDto';
+import { AuthService } from '../service/auth.service';
+import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-detail',
@@ -19,6 +22,7 @@ export class DetailAddComponent implements OnInit {
 
   constructor(
     private detailService: DetailService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -36,6 +40,13 @@ export class DetailAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.authService.username.getValue() == null) {
+      Swal.fire("Login to see this page").then(() => this.router.navigate(['/login']));
+      return;
+    } else if (!this.authService.checkAuthoritiy('CREATE_DETAILS')) {
+      Swal.fire("U can't access this page").then(() => this.router.navigate(['/main']))
+      return;
+    }
     this.detailService.showSaveDetail().subscribe({
       next: value => {
         this.detailAddResponse = value;
@@ -45,7 +56,7 @@ export class DetailAddComponent implements OnInit {
 
   saveDetail(): void {
     this.detailService.saveDetail(this.detail).subscribe({
-      next: value => this.router.navigate(['/api/cars'])
+      next: value => this.router.navigate(['/cars'])
     });
 
   }
@@ -70,7 +81,7 @@ export class DetailAddComponent implements OnInit {
 
   toDetail(id: number | null, event: MouseEvent) {
     event.preventDefault();
-    window.open("http://localhost:4200/api/detail/" + id);
+    window.open(`${environment.baseUrl}/detail/${id}`);
   }
 
   ifPresent(id: number | null) {
