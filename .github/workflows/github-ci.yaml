@@ -21,10 +21,10 @@ jobs:
       - name: "Build"
         uses: okteto/build@latest
 
-      - name: "Destroy the pipeline"
-        uses: okteto/destroy-pipeline@latest
-        with:
-          name: car-kit
+      # - name: "Destroy the pipeline"
+      #   uses: okteto/destroy-pipeline@latest
+      #   with:
+      #     name: car-kit
 
       - name: "Trigger the pipeline"
         uses: okteto/pipeline@latest
