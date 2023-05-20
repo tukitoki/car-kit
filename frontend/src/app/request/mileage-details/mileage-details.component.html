@@ -5,6 +5,7 @@
       Выберите детали нужные для замены
     </button>
     <div *ngIf="showChangeList">
+      <p>Оригинальные:</p>
       <ul *ngFor="let det of dto.detailsToChange">
         <div class="details">
           <div class="checkbox-li">
@@ -12,14 +13,14 @@
             <a class="list-group-item" (click)="toDetail(det.id, $event)">
               {{ det.name }} - {{ det.detailType }}  {{ det.dimension }}
             </a>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
+            <button class="replacements-btn btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
               aria-expanded="false" *ngIf="det.detailResponses.length > 0" (click)="showReplacementsButton(det.id)">
               Детали-заменители
             </button>
           </div>
           <div *ngIf="showReplacements && det.id == selectedReplacemntId">
+            <p>Неоригинальные:</p>
             <ul *ngFor="let repl of det.detailResponses">
-              <p>Неоригинальные:</p>
               <div class="checkbox-li">
                 <input class="form-check-input" [checked]="ifPresent(repl.id)" (click)="checkSelected($event, repl.id)" type="checkbox">
                 <a class="list-group-item" (click)="toDetail(repl.id, $event)">
@@ -46,14 +47,14 @@
             <a class="list-group-item" (click)="toDetail(det.id, $event)">
               {{ det.name }} - {{ det.detailType }}  {{ det.dimension }}
             </a>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
+            <button class="replacements-btn btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
               aria-expanded="false" *ngIf="det.detailResponses.length > 0" (click)="showReplacementsButton(det.id)">
               Детали-заменители
             </button>
           </div>
           <div *ngIf="showReplacements && det.id == selectedReplacemntId">
+            <p>Неоригинальные:</p>
             <ul *ngFor="let repl of det.detailResponses">
-              <p>Неоригинальные:</p>
               <div class="checkbox-li">
                 <input class="form-check-input" [checked]="ifPresent(repl.id)" (click)="checkSelected($event, repl.id)" type="checkbox">
                 <a class="list-group-item" (click)="toDetail(repl.id, $event)">
@@ -66,7 +67,7 @@
       </ul>
     </div>
   </div>
-  <button *ngIf="detailIds.length > 0" class="btn btn-secondary" type="button" id="showChangeList" aria-haspopup="true"
+  <button *ngIf="detailIds.length > 0" class="get-time-btn btn btn-secondary" type="button" id="showChangeList" aria-haspopup="true"
     aria-expanded="false" (click)="getTimetable()">Получить свободное время</button>
     <app-timetable *ngIf="response" [response]="response"
                                     [requestTime]="requestTime">
