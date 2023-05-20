@@ -11,6 +11,8 @@ services:
       - POSTGRES_DB=car-kit
     volumes:
       - storage:/tukitoki/car-kitdb
+    networks:
+      - db-back
   backend:
     container_name: backend
     restart: always
@@ -20,6 +22,9 @@ services:
       - "8080:8080"
     depends_on:
       - car-kit
+    networks:
+      - db-back
+      - back-front
     environment:
       - DB_URL=jdbc:postgresql://car-kit:5432/car-kit
       - DB_USER=postgres
@@ -32,6 +37,13 @@ services:
       - "4200:4200"
     depends_on:
       - backend
+    networks:
+      - back-front
+
 
 volumes:
   storage:
+
+networks:
+  back-front:
+  db-back:
