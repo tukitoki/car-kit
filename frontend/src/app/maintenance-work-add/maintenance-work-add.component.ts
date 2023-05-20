@@ -27,7 +27,7 @@ export class MaintenanceWorkAddComponent implements OnInit {
     if (this.authService.username.getValue() == null) {
       Swal.fire("Login to see this page").then(() => this.router.navigate(['/login']));
       return;
-    } else if (!this.authService.checkAuthoritiy('MAINT_WORK')) {
+    } else if (!this.authService.checkAuthoritiy('CARS_EDIT')) {
       Swal.fire("U can't access this page").then(() => this.router.navigate(['/main']))
       return;
     }

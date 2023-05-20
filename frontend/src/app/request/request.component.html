@@ -1,11 +1,11 @@
 <div>
   <div class="select-brand">
-    <select [(ngModel)]="brand" (change)="clearOnBrand($event)" class="brand form-select">
+    <select [(ngModel)]="brand" (change)="clearOnBrand($event)" class="selection form-select">
       <option *ngFor="let car of cars" [ngValue]="car"> {{ car.brand }}</option>
     </select>
   </div>
   <div class="select-model">
-    <select [(ngModel)]="model" class="form-select" (change)="clearOnModel($event)" *ngIf="brand !== undefined">
+    <select [(ngModel)]="model" class="selection form-select" (change)="clearOnModel($event)" *ngIf="brand !== undefined">
       <option *ngFor="let ml of brand.models" [ngValue]="ml"> {{ ml.model }} </option>
     </select>
   </div>
@@ -15,8 +15,10 @@
     </select>
   </div>
   <div class="mileage" *ngIf="modification">
-    <label>Mileage: </label>
-    <input [(ngModel)]="mileage" type="number" min="0" name="mileage" id="mileage" required>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Mileage:</span>
+    </div>
+    <input [(ngModel)]="mileage" class="mileage-input form-control" type="number" min="0" name="mileage" id="mileage" required>
   </div>
   <div class="get-details-button" *ngIf="mileage">
     <button class="btn btn-outline-secondary" type="button" (click)="getDetails()">Get details</button>

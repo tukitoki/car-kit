@@ -20,12 +20,12 @@ export class TimetableService {
   }
 
   public sendRequest(requestApply: RequestApplyResponse) {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.post(`${this.url}/apply`, requestApply, { headers: headers })
   }
 
   public infoRequest(carId: number | undefined, detailIds: (number | null)[]): Observable<RequestTimeResponse> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     let params = new HttpParams();
     if (carId !== undefined) {
       params = params.set('carId', carId)

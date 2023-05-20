@@ -12,7 +12,7 @@ import { decode } from 'punycode';
 })
 export class AuthService {
 
-  accessToken = new BehaviorSubject<string>('');
+  accessToken = new BehaviorSubject<string | null>(localStorage.getItem('access-jwt'));
   username = new BehaviorSubject<string | null>(localStorage.getItem('username'));
   authorities = new BehaviorSubject<string[]>(JSON.parse(localStorage.getItem('authorities') || '{}'));
   private timer?: ReturnType<typeof setTimeout>;
@@ -52,6 +52,7 @@ export class AuthService {
   }
 
   public checkAuthoritiy(authority: string) {
+    console.log(this.authorities.getValue());
     return this.authorities.getValue().includes(authority);
   }
 

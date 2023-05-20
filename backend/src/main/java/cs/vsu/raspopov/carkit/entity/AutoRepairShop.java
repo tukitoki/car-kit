@@ -33,7 +33,8 @@ public class AutoRepairShop {
     @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts;
 
-    @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Schedule> schedule;
 
     @OneToMany(mappedBy = "autoRepairShop", cascade = CascadeType.ALL, orphanRemoval = true)

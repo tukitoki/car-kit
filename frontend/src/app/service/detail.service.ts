@@ -19,27 +19,27 @@ export class DetailService {
   }
 
   public showSaveDetail(): Observable<DetailAddResponse> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.get<DetailAddResponse>(`${this.url}/add`, { headers: headers })
   }
 
   public saveDetail(detail: DetailDto) {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.post(`${this.url}/add`, detail, { headers: headers });
   }
 
   public getById(id: number): Observable<DetailDto> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.get<DetailDto>(`${this.url}/${id}`, { headers: headers })
   }
 
   public getAllDetails(): Observable<DetailDto[]> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.get<DetailDto[]>(`${this.url}/all`, { headers: headers })
   }
 
   public getDetailsByMileage(dto: DetailMileageRequest): Observable<DetailMileageDto> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     let params = new HttpParams();
     if (dto.carId !== undefined && dto.mileage !== undefined) {
       params = params.set('carId', dto.carId).set('mileage', dto.mileage);

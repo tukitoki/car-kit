@@ -1,5 +1,8 @@
 package cs.vsu.raspopov.carkit.service.impl;
 
+import cs.vsu.raspopov.carkit.dto.car.BrandDto;
+import cs.vsu.raspopov.carkit.dto.page.PageModel;
+import cs.vsu.raspopov.carkit.dto.page.SortOrder;
 import cs.vsu.raspopov.carkit.dto.request.RequestApplyResponse;
 import cs.vsu.raspopov.carkit.dto.request.RequestTime;
 import cs.vsu.raspopov.carkit.dto.request.RequestTimeResponse;
@@ -27,6 +30,11 @@ public class RequestServiceImpl implements RequestService {
     private final DetailService detailService;
     private final ScheduleRepo scheduleRepo;
     private final RequestRepo requestRepo;
+
+    @Override
+    public PageModel<BrandDto> getAllCars(int pageNumber, int pageSize, SortOrder order) {
+        return null;
+    }
 
     @Override
     public void applyRequest(RequestApplyResponse requestApply) {
@@ -89,10 +97,13 @@ public class RequestServiceImpl implements RequestService {
 
             for (var time = schedule.getStartWorkTime();
                  time.isBefore(schedule.getEndWorkTime());
-                 time = time.plusMinutes(15)) {
+                 time = time.plusMinutes(30)) {
                 var fullTimeToChange = time.plusHours(timeToChange.getHour())
                         .plusMinutes(timeToChange.getMinute());
                 LocalDateTime startTime = LocalDateTime.of(schedule.getDate(), time);
+                if (startTime.isBefore(LocalDateTime.now())) {
+                    continue;
+                }
                 LocalDateTime endTime = LocalDateTime.of(schedule.getDate(), fullTimeToChange);
                 if (isRightTime(todayRequests, startTime, endTime) && endTime.isBefore(endTimeWork)) {
                     availableTime.add(time);

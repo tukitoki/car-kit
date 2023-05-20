@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
@@ -41,26 +42,47 @@ public class AppConfig {
     @Bean
     public void initShop() {
         if (autoRepairShopRepo.findById(1L).isPresent()) {
+            var repairShop = autoRepairShopRepo.findById(1L).get();
+            var schedule = repairShop.getSchedule();
+
+            List<Schedule> toRemoveSchedule = new ArrayList<>();
+            for (var day : schedule) {
+                if (LocalDate.now().isAfter(day.getDate())) {
+                    toRemoveSchedule.add(day);
+                } else {
+                    return;
+                }
+            }
+            for (int plusDate = 0; plusDate < toRemoveSchedule.size(); plusDate++) {
+                schedule.remove(toRemoveSchedule.get(plusDate));
+                schedule.add(Schedule.builder()
+                        .date(LocalDate.now().plusDays(14 - plusDate))
+                        .startWorkTime(LocalTime.parse(startTimeWork))
+                        .endWorkTime(LocalTime.parse(endTimeWork))
+                        .autoRepairShop(repairShop)
+                        .build());
+            }
+
+            repairShop.setSchedule(schedule);
+            autoRepairShopRepo.save(repairShop);
             return;
         }
+        var shop = AutoRepairShop.builder()
+                .name("AutoRepairShop")
+                .address("ул. Минская д. 120")
+                .build();
+
         var scheduleList = new ArrayList<Schedule>();
-        scheduleList.add(Schedule.builder()
-                .date(LocalDate.now())
-                .startWorkTime(LocalTime.parse(startTimeWork))
-                .endWorkTime(LocalTime.parse(endTimeWork))
-                .build());
-        for (var plusDate = 1; plusDate <= 14; plusDate++) {
+        for (var plusDate = 0; plusDate < 14; plusDate++) {
             scheduleList.add(Schedule.builder()
                     .date(LocalDate.now().plusDays(plusDate))
                     .startWorkTime(LocalTime.parse(startTimeWork))
                     .endWorkTime(LocalTime.parse(endTimeWork))
+                    .autoRepairShop(shop)
                     .build());
         }
-        var shop = AutoRepairShop.builder()
-                .name("master")
-                .address("dfgfdg")
-                .schedule(scheduleList)
-                .build();
+
+        shop.setSchedule(scheduleList);
         autoRepairShopRepo.save(shop);
     }
 }

@@ -1,46 +1,65 @@
 <div class="detail-add">
   <div class="selects-block" *ngIf="detailAddResponse">
-    <select [(ngModel)]="detail.detailType" (change)="filterReplaces($event)" class="form-select">
+    <select [(ngModel)]="detail.detailType" (change)="filterReplaces($event)" class="type-select form-select">
       <option *ngFor="let detailType of detailAddResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
     </select>
     <div class="dimension-block">
-      <select [(ngModel)]="detail.dimension" class="form-select">
+      <select [(ngModel)]="detail.dimension" class="select-dimension form-select">
         <option *ngFor="let dimension of detailAddResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
       </select>
       <input [(ngModel)]="dimens" name="dimension" id="dimension" required>
       <button class="btn btn-outline-secondary" type="button" (click)="createDimension()">Add dimension</button>
     </div>
-    <div *ngIf="showedDetails && showedDetails.length > 0">
-      <h2>Выберите детали для добавки в замены</h2>
-      <div *ngFor="let det of showedDetails" class="checkbox-li">
-        <input input class="form-check-input" [checked]="ifPresent(det.id)" (click)="checkSelected($event, det.id)"
-        type="checkbox">
-        <a class="list-group-item clickable" (click)="toDetail(det.id, $event)">
-          {{ det.name }} - {{ det.detailType }} {{ det.dimension }}
-        </a>
+    <div class="dropdown" *ngIf="showedDetails && showedDetails.length > 0">
+      <button class="drop-btn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+        data-bs-toggle='dropdown' aria-expanded="false">Выберите детали для добавки в замены</button>
+      <div class="checkbox-li dropdown-menu">
+        <div class="info-replacements" aria-labelledby="dropdownMenuButton">
+          <a *ngFor="let det of showedDetails" class="dropdown-item" href="#">
+            <div class="form-check">
+              <input input class="form-check-input" [checked]="ifPresent(det.id)"
+                (click)="checkSelected($event, det.id)" type="checkbox">
+              <a class="form-check-label clickable" (click)="toDetail(det.id, $event)">
+                {{ det.name }} - {{ det.detailType }} {{ det.dimension }}
+              </a>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
   <div class="info-block">
-    <div class="name">
-      <label>Name: </label>
-      <input [(ngModel)]="detail.name" name="name" id="name" required>
+    <div class="name info-div">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Название:</span>
+      </div>
+      <input [(ngModel)]="detail.name" class="form-control" name="name" id="name" required>
     </div>
-    <div class="producer">
-      <label>Producer: </label>
-      <input [(ngModel)]="detail.producer" name="producer" id="producer" required>
+    <div class="producer info-div">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Производитель:</span>
+      </div>
+      <input [(ngModel)]="detail.producer" class="form-control" name="producer" id="producer" required>
     </div>
-    <div class="time-to-delivery">
-      <label>Time to delivery: </label>
-      <input [(ngModel)]="detail.timeToDelivery" name="timeToDelivery" id="timeToDelivery" required>
+    <div class="time-to-delivery info-div">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Время доставки:</span>
+      </div>
+      <input [(ngModel)]="detail.timeToDelivery" class="form-control" name="timeToDelivery" id="timeToDelivery"
+        required>
     </div>
-    <div class="description">
-      <label>description: </label>
-      <input [(ngModel)]="detail.description" name="description" id="description" required>
+    <div class="description info-div">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Описание:</span>
+      </div>
+      <textarea [(ngModel)]="detail.description" class="form-control" name="description" id="description"
+        required></textarea>
     </div>
-    <div>
-      <label>Price:</label>
-      <input [(ngModel)]="detail.price" name="price" id="price" required>
+    <div class="info-div">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Цена:</span>
+      </div>
+      <input [(ngModel)]="detail.price" class="form-control" name="price" id="price" required>
     </div>
   </div>
   <button class="save-detail btn btn-outline-secondary" type="button" (click)="saveDetail()">Add detail</button>

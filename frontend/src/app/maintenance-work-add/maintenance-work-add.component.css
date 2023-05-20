@@ -1,0 +1,14 @@
+.main {
+  margin-top: 2%;
+  margin-left: 2%;
+  max-width: 30%;
+}
+select {
+  margin-top: 1.5%;
+}
+.timeToChange {
+  margin-top: 1.5%;
+}
+.btn {
+  margin-top: 1.5%;
+}

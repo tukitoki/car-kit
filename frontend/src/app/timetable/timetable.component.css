@@ -1,0 +1,21 @@
+.timetable {
+  margin-left: 2%;
+  margin-top: 1%;
+}
+.date-time {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  margin: 1%;
+  max-width: 50%;
+}
+.time-obj {
+  margin: 2%;
+}
+.date-screen {
+  margin-top: 1%;
+}
+.send-btn {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}

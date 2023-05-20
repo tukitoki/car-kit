@@ -1,6 +1,15 @@
 .detail-add {
+    margin-top: 2%;
+    margin-left: 2%;
     display: flex;
-
+    flex-direction: column;
+}
+.type-select {
+  max-width: 20%;
+}
+.dimension-block {
+  max-width: 20%;
+  margin-top: 1%;
 }
 .selects-block {
     flex-direction: row;
@@ -13,6 +22,15 @@
 .info-block {
     flex-direction: column;
     display: flex;
+    margin-top: 1%;
+}
+.info-div {
+  margin-top: 1%;
+  max-width: 20%;
+  flex-direction: row;
+}
+.drop-btn {
+  margin-top: 1%;
 }
 .checkbox-li {
   display: inline-flexbox;
@@ -24,9 +42,12 @@
 .clickable {
   cursor: pointer;
 }
-h2 {
-  margin-left: 2%;
-}
 .save-detail {
-  height: 150px;
+  margin-top: 1%;
+  width: 7%;
+  height: 10%;
+}
+.info-replacements {
+  flex-direction: row;
+  float: left;
 }

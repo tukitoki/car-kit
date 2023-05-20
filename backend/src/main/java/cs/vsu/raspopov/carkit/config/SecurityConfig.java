@@ -58,7 +58,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**", "/api/request/**", "/api-docs/**",
-                        "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        "/swagger-ui/**", "/swagger-ui.html", "/api/car/all", "/api/car/detail/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

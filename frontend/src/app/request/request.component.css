@@ -1,5 +1,23 @@
-.brand {
+.selection {
   margin-top: 1%;
   margin-left: 2%;
   max-width: 20%;
+}
+.select-modification {
+  margin-top: 1%;
+  margin-left: 2%;
+  max-width: 40%;
+}
+.mileage {
+  margin-top: 1%;
+  margin-left: 2%;
+  display: flex;
+  flex-direction: row;
+}
+.mileage-input {
+  max-width: 15%;
+}
+.get-details-button {
+  margin-top: 1%;
+  margin-left: 2%;
 }

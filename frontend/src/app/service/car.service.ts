@@ -29,32 +29,33 @@ export class CarService {
       'brand': brand,
       'modle': model
     };
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
+    console.log(this.authService.accessToken.getValue())
     return this.httpClient.get<Page<BrandDto>>(`${this.url}/all`, { params: params , headers: headers });
   }
 
   public getCarById(id: number): Observable<CarDto> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.get<CarDto>(`${this.url}/${id}`, { headers: headers });
   }
 
   public getCarDetails(carId: number): Observable<DetailDto[]> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.get<DetailDto[]>(`${this.url}/${carId}/details`, { headers: headers })
   }
 
   public addDetailsToCar(carId: number, dto: CarAddDetailsRequest) {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.post(`${this.url}/${carId}/add-details`, dto, { headers: headers })
   }
 
   public saveCar(car: CarDto) {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.post(`${this.url}`, car, {headers: headers});
   }
 
   public addMileageDetails(id: number, details: DetailMileageAdd[]) {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.post(`${this.url}/${id}/add-mileage`, details, { headers: headers });
   }
 }

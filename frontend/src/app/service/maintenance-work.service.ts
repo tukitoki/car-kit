@@ -19,12 +19,12 @@ export class MaintenanceWorkService {
   }
 
   addCarWork(id: number, dto: MaintenanceWorkDto) {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     return this.httpClient.post(`${this.url}/car/${id}`, dto, { headers: headers })
   }
 
   showAddCarWork(): Observable<MaintenanceAddResponse> {
-    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer: ${this.authService.accessToken.getValue()}`);
+    let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
 
     return this.httpClient.get<MaintenanceAddResponse>(`${this.url}/car`, { headers: headers })
   }

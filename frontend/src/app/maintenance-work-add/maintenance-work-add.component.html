@@ -1,4 +1,4 @@
-<div *ngIf="addResponse">
+<div class="main" *ngIf="addResponse">
   <select [(ngModel)]="dto.detailType" class="form-select">
     <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
   </select>
@@ -6,9 +6,11 @@
     <option *ngFor="let dimension of addResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
   </select>
   <div class="timeToChange">
-    <label>Time to change: </label>
-    <input [(ngModel)]="dto.timeToChange" name="timeToChange" id="timeToChange" required>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Время для замены:</span>
+    </div>
+    <input [(ngModel)]="dto.timeToChange" class="form-control" name="timeToChange" id="timeToChange" required>
   </div>
   <button *ngIf="dto.detailType && dto.dimension && dto.timeToChange" class="btn btn-outline-secondary" type="button"
-    (click)="sendWork()">Add dimension</button>
+    (click)="sendWork()">Добавить работы к машине</button>
 </div>

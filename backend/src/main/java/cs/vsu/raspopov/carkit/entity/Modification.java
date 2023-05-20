@@ -22,7 +22,7 @@ public class Modification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "car_id")
+    @Column(name = "id")
     private Long id;
     @NotNull
     private String name;

@@ -4,13 +4,24 @@
 #list.show {
   display: block;
 }
-.details {
-  padding: 10px;
-}
+
 .checkbox-li {
   flex-direction: row;
   display: flex;
 }
 .list-group-item {
   margin-left: 5px;
+}
+.dropdown {
+  margin-top: 1%;
+  margin-left: 2%;
+}
+.replacements-btn {
+  margin-left: 0.75%;
+}
+.get-time-btn {
+  margin-left: 2%;
+}
+.time-obj {
+  margin: 1.5%;
 }

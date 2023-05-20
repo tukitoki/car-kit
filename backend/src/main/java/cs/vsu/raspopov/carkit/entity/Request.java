@@ -35,6 +35,9 @@ public class Request {
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
     @ManyToMany
     private List<Detail> details;
     @ManyToMany
