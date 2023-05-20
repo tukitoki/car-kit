@@ -6,6 +6,7 @@ import { DetailDto } from 'src/app/entity/detail/DetailDto';
 import { TimetableService } from 'src/app/service/timetable.service';
 import { RequestTimeResponse } from 'src/app/entity/request/RequestTimeResponse';
 import { RequestTime } from 'src/app/entity/request/RequestTime';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mileage-details',
@@ -40,7 +41,7 @@ export class MileageDetailsComponent {
 
   toDetail(id: number | null, event: MouseEvent) {
     event.preventDefault();
-    window.open("http://localhost:4200/api/detail/" + id);
+    window.open(`${window.location.origin}/detail/${id}`);
   }
 
   showReplacementsButton(id: number | null) {
