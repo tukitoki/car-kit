@@ -1,14 +1,15 @@
 <div class="card my-5">
   <div class="card-body">
-    <div class="form-floating mb-3">
-      <input [(ngModel)]="brand" (keyup)="findByBrand($event)" class="form-control" placeholder="Brand to find">
+    <div class="search form-floating mb-3 w-50">
+      <input [(ngModel)]="brand" (keyup)="findByBrand($event)" class="form-control" id="input1" placeholder="Brand to find">
+      <label class="form-label" for="input1">Марка</label>
     </div>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Brand</th>
-          <th scope="col">Model</th>
-          <th scope="col">Modification</th>
+          <th scope="col">Марка</th>
+          <th scope="col">Модель</th>
+          <th scope="col">Модификация</th>
         </tr>
       </thead>
       <tbody>

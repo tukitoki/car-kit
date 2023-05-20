@@ -190,10 +190,10 @@ public class CarServiceImpl implements CarService {
 
         List<Predicate> predicates = new ArrayList<>();
         if (brand != null && !brand.equals("")) {
-            predicates.add(cb.equal(brands.get("name"), brand));
+            predicates.add(cb.like(cb.lower(brands.get("name")), "%" + brand.toLowerCase() + "%"));
         }
         if (model != null && !model.equals("")) {
-            predicates.add(cb.equal(models.get("name"), model));
+            predicates.add(cb.like(cb.lower(models.get("name")), "%" + model.toLowerCase() + "%"));
         }
 
         query.where(cb.and(predicates.toArray(new Predicate[0])));
@@ -205,13 +205,13 @@ public class CarServiceImpl implements CarService {
         typedQuery.setMaxResults(pageable.getPageSize());
 
         List<Car> cars = typedQuery.getResultList();
-        long count = countFilteredUsers(brand, model);
+        long count = countFilteredCars(brand, model);
 
         return new PageImpl<>(cars, pageable, count);
     }
 
 
-    private long countFilteredUsers(String brand, String model) {
+    private long countFilteredCars(String brand, String model) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
 
@@ -223,10 +223,10 @@ public class CarServiceImpl implements CarService {
 
         List<Predicate> predicates = new ArrayList<>();
         if (brand != null && !brand.equals("")) {
-            predicates.add(cb.equal(brands.get("name"), brand));
+            predicates.add(cb.like(cb.lower(brands.get("name")), "%" + brand.toLowerCase() + "%"));
         }
         if (model != null && !model.equals("")) {
-            predicates.add(cb.equal(models.get("name"), model));
+            predicates.add(cb.like(cb.lower(models.get("name")), "%" + model.toLowerCase() + "%"));
         }
 
         query.where(cb.and(predicates.toArray(new Predicate[0])));

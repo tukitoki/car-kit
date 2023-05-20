@@ -19,3 +19,9 @@ input::placeholder {
   opacity: 0.5;
   color: red;
 }
+.search {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+

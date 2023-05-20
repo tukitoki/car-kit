@@ -1,9 +1,8 @@
 package cs.vsu.raspopov.carkit.controller;
 
-import cs.vsu.raspopov.carkit.dto.request.RequestApplyResponse;
-import cs.vsu.raspopov.carkit.dto.request.RequestDetailsMileage;
-import cs.vsu.raspopov.carkit.dto.request.RequestTime;
-import cs.vsu.raspopov.carkit.dto.request.RequestTimeResponse;
+import cs.vsu.raspopov.carkit.dto.page.PageModel;
+import cs.vsu.raspopov.carkit.dto.page.SortDirection;
+import cs.vsu.raspopov.carkit.dto.request.*;
 import cs.vsu.raspopov.carkit.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +15,14 @@ import java.util.List;
 public class RequestController {
 
     private final RequestService requestService;
+
+    @GetMapping("/all")
+    public PageModel<RequestDto> getAllRequests(
+            @RequestParam(defaultValue = "1") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "ASC") SortDirection order) {
+        return requestService.getAllCars(pageNumber,  pageSize, order);
+    }
 
     @PostMapping("/apply")
     public void applyRequest(@RequestBody RequestApplyResponse requestApply) {

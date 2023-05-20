@@ -10,6 +10,7 @@ import { MileageDetailsAddComponent } from './mileage-details-add/mileage-detail
 import { CarAddDetailComponent } from './car-add-detail/car-add-detail.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
+import { RequestListComponent } from './request-list/request-list.component';
 
 const routes: Routes = [
   { path: 'detail/add', component: DetailAddComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'car/add-details', component: CarAddDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'main', component: MainComponent },
+  { path: 'requests', component: RequestListComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,33 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Начало работ<button id="boot-icon" class="bi bi-arrow-down-up"
+            style="font-size: 13px; margin-left: 2%;" (click)="filter()"></button></th>
+          <th scope="col">Конец работ</th>
+          <th scope="col">Номер телефона</th>
+          <th scope="col">Машина</th>
+          <th scope="col">Детали</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests">
+          <td>{{ request.startTime }}</td>
+          <td>{{ request.endTime }}</td>
+          <td>{{ request.phoneNumber }}</td>
+          <td>{{ carToDto(request.carDto) }}</td>
+          <td>
+            <div *ngFor="let det of request.details">
+              Название:
+            <a (click)="toDetail(det.id, $event)" title="Добавить детали к замене при пробеге"
+              class="clickable btn-delete">{{ det.name }}</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-pagination [page]="page" [paginationUrl]="[]">
+    </app-pagination>
+  </div>
+</div>

@@ -27,7 +27,7 @@ export class CarService {
       'pageNumber': currPage,
       'pageSize': currPageSize,
       'brand': brand,
-      'modle': model
+      'model': model
     };
     let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     console.log(this.authService.accessToken.getValue())

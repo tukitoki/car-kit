@@ -19,6 +19,7 @@ import { CarAddDetailComponent } from './car-add-detail/car-add-detail.component
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
+import { RequestListComponent } from './request-list/request-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MainComponent } from './main/main.component';
     CarAddDetailComponent,
     LoginComponent,
     HeaderComponent,
-    MainComponent
+    MainComponent,
+    RequestListComponent
   ],
   imports: [
     BrowserModule,

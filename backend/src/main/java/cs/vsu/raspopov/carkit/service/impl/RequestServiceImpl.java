@@ -1,25 +1,35 @@
 package cs.vsu.raspopov.carkit.service.impl;
 
-import cs.vsu.raspopov.carkit.dto.car.BrandDto;
+import cs.vsu.raspopov.carkit.dto.detail.DetailResponse;
 import cs.vsu.raspopov.carkit.dto.page.PageModel;
-import cs.vsu.raspopov.carkit.dto.page.SortOrder;
+import cs.vsu.raspopov.carkit.dto.page.SortDirection;
 import cs.vsu.raspopov.carkit.dto.request.RequestApplyResponse;
+import cs.vsu.raspopov.carkit.dto.request.RequestDto;
 import cs.vsu.raspopov.carkit.dto.request.RequestTime;
 import cs.vsu.raspopov.carkit.dto.request.RequestTimeResponse;
-import cs.vsu.raspopov.carkit.entity.MaintenanceWork;
-import cs.vsu.raspopov.carkit.entity.Request;
+import cs.vsu.raspopov.carkit.entity.*;
+import cs.vsu.raspopov.carkit.mapper.CarMapper;
 import cs.vsu.raspopov.carkit.repository.RequestRepo;
 import cs.vsu.raspopov.carkit.repository.ScheduleRepo;
 import cs.vsu.raspopov.carkit.service.CarService;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import cs.vsu.raspopov.carkit.service.RequestService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+
+import static cs.vsu.raspopov.carkit.dto.page.SortDirection.ASC;
 
 @RequiredArgsConstructor
 @Service
@@ -30,10 +40,41 @@ public class RequestServiceImpl implements RequestService {
     private final DetailService detailService;
     private final ScheduleRepo scheduleRepo;
     private final RequestRepo requestRepo;
+    private final CarMapper carMapper;
+    private final EntityManager entityManager;
 
     @Override
-    public PageModel<BrandDto> getAllCars(int pageNumber, int pageSize, SortOrder order) {
-        return null;
+    public PageModel<RequestDto> getAllCars(int pageNumber, int pageSize, SortDirection order) {
+        var page = filerPage(pageNumber, pageSize, order);
+
+        List<RequestDto> requests = page.getContent()
+                .stream()
+                .map(request -> {
+                    var detailResponses = request.getDetails()
+                            .stream()
+                            .map(detail -> {
+                                var detailResponse = DetailResponse.builder()
+                                        .id(detail.getId())
+                                        .name(detail.getName())
+                                        .build();
+                                return detailResponse;
+                            })
+                            .toList();
+
+                    var requestDto = RequestDto.builder()
+                            .id(request.getId())
+                            .startTime(request.getStartTime().toString())
+                            .endTime(request.getEndTime().toString())
+                            .phoneNumber(request.getPhoneNumber())
+                            .carDto(carMapper.toDto(request.getCar()))
+                            .details(detailResponses)
+                            .build();
+                    return requestDto;
+                })
+                .toList();
+
+        return PageModel.of(requests, pageNumber, page.getTotalElements(),
+                pageSize, page.getTotalPages());
     }
 
     @Override
@@ -144,5 +185,47 @@ public class RequestServiceImpl implements RequestService {
             }
         }
         return true;
+    }
+
+    private Page<Request> filerPage(int pageNumber, int pageSize, SortDirection order) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Request> query = cb.createQuery(Request.class);
+
+        Root<Request> root = query.from(Request.class);
+
+        query.select(root).distinct(true);
+
+        Path<Object> orderByName = root.get("startTime");
+        Order dateOrder = order.equals(ASC)
+                ? cb.asc(orderByName)
+                : cb.desc(orderByName);
+
+        List<Order> orderList = List.of(dateOrder, cb.asc(root.get("id")));
+        query.orderBy(orderList);
+
+        TypedQuery<Request> typedQuery = entityManager.createQuery(query);
+        typedQuery.setFirstResult((int) pageable.getOffset());
+        typedQuery.setMaxResults(pageable.getPageSize());
+
+        List<Request> requests = typedQuery.getResultList();
+        long count = countFilteredRequest();
+
+        return new PageImpl<>(requests, pageable, count);
+    }
+
+
+    private long countFilteredRequest() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+
+        Root<Request> root = query.from(Request.class);
+
+        query.select(cb.countDistinct(root));
+
+        TypedQuery<Long> typedQuery = entityManager.createQuery(query);
+
+        return typedQuery.getSingleResult();
     }
 }
