@@ -21,7 +21,7 @@ export class TimetableService {
 
   public sendRequest(requestApply: RequestApplyResponse) {
     let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
-    return this.httpClient.post(`${this.url}/apply`, requestApply, { headers: headers })
+    return this.httpClient.post(`${this.url}/apply`, requestApply)
   }
 
   public infoRequest(carId: number | undefined, detailIds: (number | null)[]): Observable<RequestTimeResponse> {
@@ -35,6 +35,6 @@ export class TimetableService {
         params = params.append('detailIds', id);
       }
     }
-    return this.httpClient.get<RequestTimeResponse>(`${this.url}/apply`, { params: params, headers: headers })
+    return this.httpClient.get<RequestTimeResponse>(`${this.url}/apply`, { params: params })
   }
 }

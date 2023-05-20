@@ -30,7 +30,7 @@ export class DetailService {
 
   public getById(id: number): Observable<DetailDto> {
     let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
-    return this.httpClient.get<DetailDto>(`${this.url}/${id}`, { headers: headers })
+    return this.httpClient.get<DetailDto>(`${this.url}/${id}`,)
   }
 
   public getAllDetails(): Observable<DetailDto[]> {
@@ -47,6 +47,6 @@ export class DetailService {
     } else {
       params = params.append('carId', 0)
     }
-    return this.httpClient.get<DetailMileageDto>(`${this.url}/mileage-details`, { params: params, headers: headers })
+    return this.httpClient.get<DetailMileageDto>(`${this.url}/mileage-details`, { params: params })
   }
 }

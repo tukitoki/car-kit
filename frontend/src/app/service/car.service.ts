@@ -31,7 +31,7 @@ export class CarService {
     };
     let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     console.log(this.authService.accessToken.getValue())
-    return this.httpClient.get<Page<BrandDto>>(`${this.url}/all`, { params: params , headers: headers });
+    return this.httpClient.get<Page<BrandDto>>(`${this.url}/all`, { params: params });
   }
 
   public getCarById(id: number): Observable<CarDto> {
