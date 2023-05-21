@@ -8,27 +8,24 @@ on:
 
 jobs:
 
-  devflow:
+  build:
+    - name: Build Docker backend image
+      run: docker build -t docker.io/carkit-backend:latest backend/
+    - name: Build Docker frontend image
+      run: docker build -t docker.io/carkit-frontend:latest frontend/
+
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-
-      - uses: okteto/context@latest
+      - name: context
+        uses: okteto/context@latest
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
 
-      - name: "Build"
-        uses: okteto/build@latest
-
-      # - name: "Destroy the pipeline"
-      #   uses: okteto/destroy-pipeline@latest
-      #   with:
-      #     name: car-kit
-
-      - name: "Trigger the pipeline"
+      - name: deploy
         uses: okteto/pipeline@latest
         with:
-          name: car-kit
+          name: timetable
           timeout: 8m
-          skipIfExists: true
+          variables: ${{ secrets.ENV_FILE }}
