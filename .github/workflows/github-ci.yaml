@@ -9,6 +9,10 @@ on:
 jobs:
 
   build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v3
     - name: Build Docker backend image
       run: docker build -t docker.io/carkit-backend:latest backend/
     - name: Build Docker frontend image
