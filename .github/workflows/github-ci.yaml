@@ -30,6 +30,6 @@ jobs:
       - name: deploy
         uses: okteto/pipeline@latest
         with:
-          name: timetable
+          name: carkit
           timeout: 8m
           variables: ${{ secrets.ENV_FILE }}
