@@ -38,8 +38,8 @@
           id="count" required>
       </div>
       <div class="dimension-block">
-        <select [(ngModel)]="addResponse.dimensions" class="select-dimension form-select">
-          <option *ngFor="let dimension of addResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
+        <select [(ngModel)]="detailsMileages[i].dimension" disabled class="select-dimension form-select">
+          <option [ngValue]="detailsMileages[i].dimension">{{ detailsMileages[i].dimension }}</option>
         </select>
       </div>
     </div>
