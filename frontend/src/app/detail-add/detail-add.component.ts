@@ -27,7 +27,7 @@ export class DetailAddComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.detail = {
-      id: null,
+      id: -1,
       name: "",
       description: "",
       price: 0.0,
@@ -35,6 +35,7 @@ export class DetailAddComponent implements OnInit {
       timeToDelivery: "",
       dimension: "",
       detailType: "",
+      count: 0.0,
       detailResponses: []
     }
   }
@@ -70,21 +71,21 @@ export class DetailAddComponent implements OnInit {
       .filter(det => det.detailType == this.detail.detailType)
   }
 
-  checkSelected(event: any, id: number | null) {
+  checkSelected(event: any, id: number) {
     this.selected = (event.target as HTMLInputElement).checked;
     if (this.selected) {
-      this.detail.detailResponses.push({id: id, name: ""});
+      this.detail.detailResponses.push({id: id, name: "", dimension: "", count: -1});
     } else {
       this.detail.detailResponses.splice(this.detail.detailResponses.map(d => d.id).indexOf(id), 1);
     }
   }
 
-  toDetail(id: number | null, event: MouseEvent) {
+  toDetail(id: number, event: MouseEvent) {
     event.preventDefault();
     window.open(`${environment.baseUrl}/detail/${id}`);
   }
 
-  ifPresent(id: number | null) {
+  ifPresent(id: number) {
     return this.detail.detailResponses.map(d => d.id).indexOf(id) != -1
   }
 }

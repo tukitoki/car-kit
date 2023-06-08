@@ -1,4 +1,4 @@
 export interface RequestTime {
   carId: number;
-  details: (number | null)[];
+  details: Map<number, number>;
 }

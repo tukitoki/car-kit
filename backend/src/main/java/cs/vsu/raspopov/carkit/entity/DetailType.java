@@ -32,8 +32,4 @@ public class DetailType {
         this.name = name;
         this.displayName = displayName;
     }
-
-    public String getName() {
-        return name.toString();
-    }
 }

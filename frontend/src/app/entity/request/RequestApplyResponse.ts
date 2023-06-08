@@ -5,4 +5,5 @@ export interface RequestApplyResponse {
   date: string | null;
   startTime: string | null;
   phoneNumber: string;
+  map: Object
 }

@@ -25,3 +25,11 @@
 .time-obj {
   margin: 1.5%;
 }
+.form-control {
+  max-width: 3%;
+  max-height: 3%;
+}
+.list-group-item {
+  margin-top: 0.4%;
+  margin-left: 1%;
+}

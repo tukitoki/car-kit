@@ -38,7 +38,7 @@ export class DetailService {
     return this.httpClient.get<DetailDto[]>(`${this.url}/all`, { headers: headers })
   }
 
-  public getDetailsByMileage(dto: DetailMileageRequest): Observable<DetailMileageDto> {
+  public getDetailsByMileage(dto: DetailMileageRequest): Observable<DetailMileageDto[]> {
     let headers = new HttpHeaders().set('AUTHORIZATION', `Bearer ${this.authService.accessToken.getValue()}`);
     let params = new HttpParams();
     if (dto.carId !== undefined && dto.mileage !== undefined) {
@@ -47,6 +47,6 @@ export class DetailService {
     } else {
       params = params.append('carId', 0)
     }
-    return this.httpClient.get<DetailMileageDto>(`${this.url}/mileage-details`, { params: params })
+    return this.httpClient.get<DetailMileageDto[]>(`${this.url}/mileage-details`, { params: params })
   }
 }

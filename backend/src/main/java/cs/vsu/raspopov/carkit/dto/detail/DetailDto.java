@@ -19,6 +19,7 @@ public class DetailDto {
     private String producer;
     private String timeToDelivery;
     private String dimension;
+    private BigDecimal count;
     private List<DetailResponse> detailResponses;
     private String detailType;
 }

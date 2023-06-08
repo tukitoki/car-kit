@@ -7,7 +7,9 @@ import cs.vsu.raspopov.carkit.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/request")
@@ -32,9 +34,14 @@ public class RequestController {
     @GetMapping("/apply")
     public RequestTimeResponse infoRequest(@RequestParam Long carId,
                                            @RequestParam List<Long> detailIds) {
+        Map<Long, Integer> map = new HashMap<>();
+        detailIds.forEach(detailId -> {
+            map.put(detailId, 0);
+        });
+
         return requestService.infoRequest(RequestTime.builder()
                 .carId(carId)
-                .details(detailIds)
+                .details(map)
                 .build());
     }
 }

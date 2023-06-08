@@ -20,7 +20,7 @@ public interface DetailService {
 
     DetailDto getById(@NotNull Long id);
 
-    DetailMileageDto getDetailsByMileage(DetailMileageRequest detailMileageRequest);
+    List<DetailMileageDto> getDetailsByMileage(DetailMileageRequest detailMileageRequest);
 
     Detail getDetailById(@NotNull Long id);
 }

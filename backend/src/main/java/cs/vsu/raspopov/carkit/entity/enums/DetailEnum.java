@@ -2,6 +2,7 @@ package cs.vsu.raspopov.carkit.entity.enums;
 
 public enum DetailEnum {
     OIL_FILTER("Масляный фильтр"),
+    OIL("Масло"),
     AIR_FILTER("Воздушный фильтр"),
     CABIN_FILTER("Кабиный фильтр"),
     FRONT_BRAKE_PADS("Передние тормозные колодки"),

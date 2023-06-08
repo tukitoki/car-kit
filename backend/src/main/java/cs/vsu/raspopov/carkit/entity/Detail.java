@@ -10,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Set;
 
 @Getter
@@ -34,6 +33,8 @@ public class Detail {
     private BigDecimal price;
     @NotNull
     private String producer;
+    @NotNull
+    private BigDecimal count;
     @NotNull
     private Time timeToDelivery;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})

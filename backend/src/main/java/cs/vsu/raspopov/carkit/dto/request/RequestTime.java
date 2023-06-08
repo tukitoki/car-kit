@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
+import java.util.Map;
 
 @Getter
 @SuperBuilder
@@ -12,5 +12,6 @@ import java.util.List;
 public class RequestTime {
 
     private Long carId;
-    private List<Long> details;
+    private Map<Integer, Integer> detailss;
+    private Map<Long, Integer> details;
 }

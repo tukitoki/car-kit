@@ -39,3 +39,6 @@ VALUES ('1.6 L GM MGE Turbo I4',
 INSERT INTO car(brand_id, model_id, modification_id) VALUES (1, 1, 1);
 INSERT INTO car(brand_id, model_id, modification_id) VALUES (2, 2, 2);
 INSERT INTO car(brand_id, model_id, modification_id) VALUES (3, 3, 3);
+
+INSERT INTO dimension(dimension_name) values('л');
+INSERT INTO dimension(dimension_name) values('шт');

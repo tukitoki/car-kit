@@ -5,7 +5,7 @@
     <p>Описание детали</p>
     <p>Производитель: <span class="manufacturer">{{ detail.producer }}</span></p>
     <p>Тип детали: <span class="type">{{ detail.detailType }}</span></p>
-    <p>Размерность: <span class="type">{{ detail.dimension }}</span></p>
+    <p>Количество: <span class="type">{{ detail.count }} {{ detail.dimension }}</span></p>
     <p>Время доставки: <span class="type">{{ detail.timeToDelivery }}</span></p>
     <p>Цена: <span class="type">{{ detail.price }}</span></p>
     <div *ngIf="detail.detailResponses && detail.detailResponses.length > 0">

@@ -14,6 +14,12 @@
       </div>
     </div>
   </div>
+  <div *ngIf="selectedDate != null" class="phone info-div">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Телефон:</span>
+    </div>
+    <input class="input" [(ngModel)]="telephone" class="form-control" name="name" id="name" required>
+  </div>
   <button *ngIf="selectedDate != null && selectedStartTime != null" class="send-btn btn btn-secondary" type="button"
     aria-haspopup="true" aria-expanded="false" (click)="sendRequest()">Отправить заявку</button>
 </div>

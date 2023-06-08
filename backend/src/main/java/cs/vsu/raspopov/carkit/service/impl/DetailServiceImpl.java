@@ -2,22 +2,19 @@ package cs.vsu.raspopov.carkit.service.impl;
 
 
 import cs.vsu.raspopov.carkit.dto.detail.*;
-import cs.vsu.raspopov.carkit.entity.Detail;
-import cs.vsu.raspopov.carkit.entity.DetailReplacement;
-import cs.vsu.raspopov.carkit.entity.DetailReplacementId;
-import cs.vsu.raspopov.carkit.entity.Dimension;
+import cs.vsu.raspopov.carkit.entity.*;
+import cs.vsu.raspopov.carkit.entity.enums.DetailEnum;
 import cs.vsu.raspopov.carkit.mapper.DetailMapper;
 import cs.vsu.raspopov.carkit.repository.*;
 import cs.vsu.raspopov.carkit.service.DetailService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.math.BigDecimal;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -109,6 +106,8 @@ public class DetailServiceImpl implements DetailService {
                     var replacement = getDetailById(detailReplacement.getId().getReplacementDetailId());
                     DetailResponse detailResponse = DetailResponse.builder()
                             .name(replacement.getName())
+                            .dimension(replacement.getDimension().getDimensionName())
+                            .count(replacement.getCount())
                             .id(replacement.getId())
                             .build();
                     return detailResponse;
@@ -119,20 +118,54 @@ public class DetailServiceImpl implements DetailService {
     }
 
     @Override
-    public DetailMileageDto getDetailsByMileage(DetailMileageRequest detailMileageRequest) {
+    public List<DetailMileageDto> getDetailsByMileage(DetailMileageRequest detailMileageRequest) {
         var modification = modificationRepo.findById(detailMileageRequest.getCarId())
                 .orElseThrow();
+        List<DetailMileageDto> detailMileageDtos = new ArrayList<>();
 
-        ArrayList<DetailDto> detailsToChange = new ArrayList<>();
-        ArrayList<DetailDto> otherDetails = new ArrayList<>();
-        modification.getDetailMileageChange().forEach(detailMileageChange -> {
+        for (var detailType : DetailEnum.values()) {
+            var list = modification.getDetailMileageChange()
+                    .stream()
+                    .sorted()
+                    .filter(detailMileageChange -> detailMileageChange.getDetailType().getName() == detailType)
+                    .toList();
+
+            if (list.isEmpty()) {
+                continue;
+            }
+
+            DetailMileageChange needableDetail = null;
+            int closestMileage = Integer.MIN_VALUE;
+
+            for (var det : list) {
+                if (det.getMileage() <= detailMileageRequest.getMileage() && det.getMileage() >= closestMileage
+                        && det.getCount().compareTo(BigDecimal.ONE) >= 0) {
+                    closestMileage = det.getMileage();
+                    needableDetail = det;
+                } else if (det.getMileage() <= detailMileageRequest.getMileage()) {
+                    closestMileage = Integer.MIN_VALUE;
+                    needableDetail = det;
+                }
+            }
+
+            if (needableDetail == null) {
+                needableDetail = list.get(0);
+            }
+
+            boolean isNeed = closestMileage != Integer.MIN_VALUE;
+
+            List<DetailDto> detailsToChange = new ArrayList<>();
+            List<DetailDto> otherDetails = new ArrayList<>();
             List<Long> detailIds = new ArrayList<>();
             modification.getDetails().forEach(detail -> {
-                if (detail.getDetailType().equals(detailMileageChange.getDetailType())) {
+                if (detail.getDetailType().getName().equals(detailType)) {
                     detailIds.add(detail.getId());
                 }
             });
-            if (detailMileageRequest.getMileage() >= detailMileageChange.getMileage()) {
+            if (detailIds.isEmpty()) {
+                continue;
+            }
+            if (isNeed) {
                 detailsToChange.addAll(detailIds.
                         stream()
                         .map(this::getById)
@@ -143,12 +176,45 @@ public class DetailServiceImpl implements DetailService {
                         .map(this::getById)
                         .toList());
             }
-        });
 
-        return DetailMileageDto.builder()
-                .detailsToChange(detailsToChange)
-                .otherDetails(otherDetails)
-                .build();
+            detailMileageDtos.add(DetailMileageDto.builder()
+                    .detailType(detailType.toString())
+                    .countToChange(needableDetail.getCount())
+                    .detailsToChange(detailsToChange)
+                    .otherDetails(otherDetails)
+                    .build());
+        }
+
+//        modification.getDetailMileageChange().forEach(detailMileageChange -> {
+//            List<DetailDto> detailsToChange = new ArrayList<>();
+//            List<DetailDto> otherDetails = new ArrayList<>();
+//            List<Long> detailIds = new ArrayList<>();
+//            modification.getDetails().forEach(detail -> {
+//                if (detail.getDetailType().equals(detailMileageChange.getDetailType())) {
+//                    detailIds.add(detail.getId());
+//                }
+//            });
+//            if (detailMileageRequest.getMileage() >= detailMileageChange.getMileage()) {
+//                detailsToChange.addAll(detailIds.
+//                        stream()
+//                        .map(this::getById)
+//                        .toList());
+//            } else {
+//                otherDetails.addAll(detailIds.
+//                        stream()
+//                        .map(this::getById)
+//                        .toList());
+//            }
+//
+//            detailMileageDtos.add(DetailMileageDto.builder()
+//                    .detailType(detailMileageChange.getDetailType().getDisplayName())
+//                    .countToChange(detailMileageChange.getCount())
+//                    .detailsToChange(detailsToChange)
+//                    .otherDetails(otherDetails)
+//                    .build());
+//        });
+
+        return detailMileageDtos;
     }
 
     @Override

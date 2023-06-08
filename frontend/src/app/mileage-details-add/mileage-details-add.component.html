@@ -1,24 +1,50 @@
-<div>
+<div class="detail-add">
   <div *ngFor="let mileage of detailsMileages, index as i">
-    <select *ngIf="indexMileage - 1 == i" [(ngModel)]="detailsMileages[i].detailType" class="form-select">
+    <select *ngIf="indexMileage - 1 == i" [(ngModel)]="detailsMileages[i].detailType" class="type-select form-select">
       <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
     </select>
-    <select *ngIf="indexMileage - 1 != i" disabled [(ngModel)]="detailsMileages[i].detailType" class="form-select">
-      <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
-    </select>
-    <div *ngIf="indexMileage - 1 == i">
-      <label>Mileage: </label>
-      <input [(ngModel)]="detailsMileages[i].mileage" type="number" name="timeToChange" id="timeToChange" required>
-      <a (click)="deleteMileageDetail()" class="btn-delete clickable">✖</a>
+    <div class="input-block" *ngIf="indexMileage - 1 != i">
+      <select disabled [(ngModel)]="detailsMileages[i].detailType" class="form-select">
+        <option *ngFor="let detailType of addResponse.detailTypes" [ngValue]="detailType">{{ detailType }}</option>
+      </select>
+      <a (click)="deleteMileageDetail()" class="btn-delete label-btn clickable">✖</a>
     </div>
-    <div *ngIf="indexMileage - 1 != i">
-      <label>Mileage: </label>
-      <input disabled [(ngModel)]="detailsMileages[i].mileage" type="number" name="timeToChange" id="timeToChange" required>
-      <a (click)="deleteMileageDetail()" class="btn-delete clickable">✖</a>
+    <div class="mileage" *ngIf="indexMileage - 1 == i">
+      <div class="input-block">
+        <label class="mileage-input">Mileage:</label>
+        <input class="timeToChangeInput form-control" [(ngModel)]="detailsMileages[i].mileage" min="1" type="number"
+          name="mileage" id="mileage" required>
+      </div>
+      <div class="input-block">
+        <label class="mileage-input">Количество:</label>
+        <input class="timeToChangeInput form-control" [(ngModel)]="detailsMileages[i].count" min="1" type="number" name="count"
+          id="count" required>
+      </div>
+      <div class="dimension-block">
+        <select [(ngModel)]="detailsMileages[i].dimension" class="select-dimension form-select">
+          <option *ngFor="let dimension of addResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="mileage" *ngIf="indexMileage - 1 != i">
+      <div class="input-block">
+        <label class="mileage-input">Mileage:</label>
+        <input class="timeToChangeInput form-control" disabled [(ngModel)]="detailsMileages[i].mileage" type="number"
+          name="mileage" id="mileage" required>
+      </div>
+      <div class="input-block">
+        <label class="mileage-input">Количество:</label>
+        <input class="timeToChangeInput form-control" disabled [(ngModel)]="detailsMileages[i].count" type="number" name="count"
+          id="count" required>
+      </div>
+      <div class="dimension-block">
+        <select [(ngModel)]="addResponse.dimensions" class="select-dimension form-select">
+          <option *ngFor="let dimension of addResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
+        </select>
+      </div>
     </div>
   </div>
-  <button class="btn btn-outline-secondary" type="button"
-  (click)="addMileageDetail()">Add detail mileage</button>
+  <button class="btn btn-outline-secondary" type="button" (click)="addMileageDetail()">Add detail mileage</button>
   <button *ngIf="detailsMileages.length > 0" class="btn btn-outline-secondary" type="button"
-  (click)="sendDetails()">Send details</button>
+    (click)="sendDetails()">Send details</button>
 </div>

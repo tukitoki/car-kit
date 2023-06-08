@@ -34,7 +34,7 @@ public class Modification {
     private Integer yearTo;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "car_detail",
-            joinColumns = @JoinColumn(name = "car_id"),
+            joinColumns = @JoinColumn(name = "modification_id"),
             inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Set<Detail> details;
     @NotNull

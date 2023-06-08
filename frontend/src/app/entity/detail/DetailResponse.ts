@@ -1,4 +1,6 @@
 export interface DetailResponse {
-    id: number | null
+    id: number;
+    count: number;
+    dimension: string;
     name: string
 }

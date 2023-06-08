@@ -1,0 +1,43 @@
+.detail-add {
+  margin-top: 2%;
+  margin-left: 2%;
+  max-width: 30%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.input-block {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1%;
+}
+.timeToChangeInput {
+  max-width: 50%;
+  margin-left: 2%;
+}
+.btn {
+  max-width: 40%;
+  margin-top: 2%;
+}
+.input-btn {
+  margin-top: 2%;
+}
+.btn-delete {
+  margin-left: 1%;
+  margin-top: 2%;
+}
+.mileage {
+  margin-top: 1%;
+}
+.clickable {
+  cursor: pointer;
+}
+.form-control {
+  margin-top: 1%;
+}
+.mileage-input {
+  margin-top: 2%;
+}
+.dimension-block {
+  margin-top: 2%;
+}

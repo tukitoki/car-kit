@@ -21,7 +21,7 @@ export class RequestComponent {
   modification?: ModificationDto;
   mileage?: number;
   request!: DetailMileageRequest;
-  mileageDto?: DetailMileageDto;
+  mileageDto?: DetailMileageDto[];
 
   constructor(
     private carService: CarService,

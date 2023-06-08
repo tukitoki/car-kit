@@ -50,7 +50,7 @@ public class RequestServiceImpl implements RequestService {
         List<RequestDto> requests = page.getContent()
                 .stream()
                 .map(request -> {
-                    var detailResponses = request.getDetails()
+                    List<DetailResponse> detailResponses = request.getDetails()
                             .stream()
                             .map(detail -> {
                                 var detailResponse = DetailResponse.builder()
@@ -80,20 +80,18 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void applyRequest(RequestApplyResponse requestApply) {
         List<MaintenanceWork> works = new ArrayList<>();
-        var details = requestApply.getRequestTime().getDetails()
-                .stream()
-                .map(id -> {
-                    var detail = detailService.getDetailById(id);
-
-                    works.add(maintenanceWorkService.getMaintenanceWork(requestApply.getRequestTime().getCarId(),
-                            detail.getDetailType().getId()));
-
-                    return detail;
-                })
-                .toList();
+        List<Detail> details = new ArrayList<>();
+        requestApply.getMap().forEach((id, count) -> {
+            var detail = detailService.getDetailById(id);
+            for (int i = 0; i < count; i++) {
+                details.add(detail);
+            }
+            works.add(maintenanceWorkService.getMaintenanceWork(requestApply.getRequestTime().getCarId(),
+                    detail.getDetailType().getId()));
+        });
         var date = LocalDate.parse(requestApply.getDate());
         var startTime = LocalTime.parse(requestApply.getStartTime());
-        var endTime = getSumTime(requestApply.getRequestTime().getDetails(),
+        var endTime = getSumTime(requestApply.getMap().keySet().stream().toList(),
                 requestApply.getRequestTime().getCarId());
         endTime = endTime.plusHours(startTime.getHour())
                 .plusMinutes(startTime.getMinute());
@@ -112,7 +110,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestTimeResponse infoRequest(RequestTime requestTime) {
-        var sum = getSumTime(requestTime.getDetails(), requestTime.getCarId());
+        var sum = getSumTime(requestTime.getDetails().keySet().stream().toList(),
+                requestTime.getCarId());
 
         var mapDate = getAllInDate(sum);
         return RequestTimeResponse.builder()

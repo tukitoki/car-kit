@@ -38,6 +38,7 @@ public class CarServiceImpl implements CarService {
     private final ModificationRepo modificationRepo;
     private final DetailMileageChangeRepo detailMileageChangeRepo;
     private final DetailTypeRepo detailTypeRepo;
+    private final DimensionRepo dimensionRepo;
     private final EntityManager entityManager;
 
     @Override
@@ -74,8 +75,6 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDto getCarById(Long id) {
         var car = getCar(id);
-
-
         return null;
     }
 
@@ -138,9 +137,13 @@ public class CarServiceImpl implements CarService {
         dto.forEach(detailMileageAdd -> {
             var detailType = detailTypeRepo.findByDisplayName(detailMileageAdd.getDetailType())
                     .orElseThrow();
+            var dimension = dimensionRepo.findByDimensionName(detailMileageAdd.getDimension())
+                    .orElseThrow();
             detailMileageChangeRepo.save(DetailMileageChange.builder()
                     .mileage(detailMileageAdd.getMileage())
                     .detailType(detailType)
+                    .dimension(dimension)
+                    .count(detailMileageAdd.getCount())
                     .modification(car.getModification())
                     .build());
         });

@@ -44,7 +44,7 @@ public class DetailController implements DetailApi {
 
     @Override
     @GetMapping("/mileage-details")
-    public DetailMileageDto getDetailsByMileage(@RequestParam Integer mileage,
+    public List<DetailMileageDto> getDetailsByMileage(@RequestParam Integer mileage,
                                                 @RequestParam Long carId) {
         return detailService.getDetailsByMileage(new DetailMileageRequest(mileage, carId));
     }

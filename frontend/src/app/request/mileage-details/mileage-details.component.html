@@ -1,75 +1,93 @@
 <div>
-  <div class="dropdown" *ngIf="dto.detailsToChange.length > 0">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
-      aria-expanded="false" (click)="showChangeList = !showChangeList">
-      Выберите детали нужные для замены
+  <ul class="dropdown" *ngFor="let dto of dto">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="showDetailList" aria-haspopup="true"
+      aria-expanded="false" (click)="setVisibleType(dto.detailType)">
+      {{ dto.detailType }}
     </button>
-    <div *ngIf="showChangeList">
-      <p>Оригинальные:</p>
-      <ul *ngFor="let det of dto.detailsToChange">
-        <div class="details">
-          <div class="checkbox-li">
-            <input class="form-check-input" [checked]="ifPresent(det.id)" (click)="checkSelected($event, det.id)" type="checkbox">
-            <a class="list-group-item" (click)="toDetail(det.id, $event)">
-              {{ det.name }} - {{ det.detailType }}  {{ det.dimension }}
-            </a>
-            <button class="replacements-btn btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
-              aria-expanded="false" *ngIf="det.detailResponses.length > 0" (click)="showReplacementsButton(det.id)">
-              Детали-заменители
-            </button>
-          </div>
-          <div *ngIf="showReplacements && det.id == selectedReplacemntId">
-            <p>Неоригинальные:</p>
-            <ul *ngFor="let repl of det.detailResponses">
+    <div *ngIf="selectedType == dto.detailType">
+      <div class="dropdown" *ngIf="dto.detailsToChange.length > 0">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
+          aria-expanded="false" (click)="showChangeList = !showChangeList">
+          Выберите детали нужные для замены
+        </button>
+        <div *ngIf="showChangeList && selectedType == dto.detailType">
+          <p>Оригинальные:</p>
+          <ul *ngFor="let det of dto.detailsToChange">
+            <div class="details">
               <div class="checkbox-li">
-                <input class="form-check-input" [checked]="ifPresent(repl.id)" (click)="checkSelected($event, repl.id)" type="checkbox">
-                <a class="list-group-item" (click)="toDetail(repl.id, $event)">
-                  {{ repl.name }} - {{ det.detailType }}
+                <input class="form-control" [disabled]="isShouldBeDisables(det.id, det.detailType)" [checked]="ifPresent(det.id)"
+                (input)="checkSelected($event, det.id, det.detailType, det.count)" min="0"
+                 type="number" onkeydown="return false;" [max]="calcMaximumInput(det.detailType, det.id)"
+                 [value]="getValueInInput(det.id)">
+                <a class="list-group-item" (click)="toDetail(det.id, $event)">
+                  {{ det.name }} - {{ det.detailType }}, {{ det.count }} {{ det.dimension }}
                 </a>
+                <button class="replacements-btn btn btn-secondary dropdown-toggle" type="button" id="showChangeList"
+                  aria-haspopup="true" aria-expanded="false" *ngIf="det.detailResponses.length > 0"
+                  (click)="showReplacementsButton(det.id)">
+                  Детали-заменители
+                </button>
               </div>
-            </ul>
-          </div>
+              <div *ngIf="showReplacements && det.id == selectedReplacemntId">
+                <p>Неоригинальные:</p>
+                <ul *ngFor="let repl of det.detailResponses">
+                  <div class="checkbox-li">
+                    <input class="form-control" [disabled]="isShouldBeDisables(repl.id, det.detailType)" [checked]="ifPresent(repl.id)"
+                      (click)="checkSelected($event, repl.id, det.detailType, repl.count)" type="number" min="0"
+                      [max]="calcMaximumInput(det.detailType, repl.id)" [value]="getValueInInput(repl.id)">
+                    <a class="list-group-item" (click)="toDetail(repl.id, $event)">
+                      {{ repl.name }} - {{ repl.count }} {{ repl.dimension }}
+                    </a>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </ul>
         </div>
-      </ul>
-    </div>
-  </div>
-  <div class="dropdown" *ngIf="dto.otherDetails.length > 0">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
-      aria-expanded="false" (click)="showOtherList = !showOtherList">
-      Выберите детали, которые не к спешке менять
-    </button>
-    <div *ngIf="showOtherList">
-      <p>Оригинальные:</p>
-      <ul *ngFor="let det of dto.otherDetails">
-        <div class="details">
-          <div class="checkbox-li">
-            <input class="form-check-input" [checked]="ifPresent(det.id)" (click)="checkSelected($event, det.id)" type="checkbox">
-            <a class="list-group-item" (click)="toDetail(det.id, $event)">
-              {{ det.name }} - {{ det.detailType }}  {{ det.dimension }}
-            </a>
-            <button class="replacements-btn btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
-              aria-expanded="false" *ngIf="det.detailResponses.length > 0" (click)="showReplacementsButton(det.id)">
-              Детали-заменители
-            </button>
-          </div>
-          <div *ngIf="showReplacements && det.id == selectedReplacemntId">
-            <p>Неоригинальные:</p>
-            <ul *ngFor="let repl of det.detailResponses">
+      </div>
+      <div class="dropdown" *ngIf="dto.otherDetails.length > 0">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="showChangeList" aria-haspopup="true"
+          aria-expanded="false" (click)="showOtherList = !showOtherList">
+          Выберите детали, которые не к спешке менять
+        </button>
+        <div *ngIf="showOtherList">
+          <p>Оригинальные:</p>
+          <ul *ngFor="let det of dto.otherDetails">
+            <div class="details">
               <div class="checkbox-li">
-                <input class="form-check-input" [checked]="ifPresent(repl.id)" (click)="checkSelected($event, repl.id)" type="checkbox">
-                <a class="list-group-item" (click)="toDetail(repl.id, $event)">
-                  {{ repl.name }} - {{ det.detailType }}
+                <input class="form-control" [disabled]="isShouldBeDisables(det.id, det.detailType)" [checked]="ifPresent(det.id)"
+                (input)="checkSelected($event, det.id, det.detailType, det.count)" type="number" min="0" onkeydown="return false;"
+                [max]="calcMaximumInput(det.detailType, det.id)" [value]="getValueInInput(det.id)">
+                <a class="list-group-item" (click)="toDetail(det.id, $event)">
+                  {{ det.name }} - {{ det.detailType }}, {{ det.count }} {{ det.dimension }}
                 </a>
+                <button class="replacements-btn btn btn-secondary dropdown-toggle" type="button" id="showChangeList"
+                  aria-haspopup="true" aria-expanded="false" *ngIf="det.detailResponses.length > 0"
+                  (click)="showReplacementsButton(det.id)">
+                  Детали-заменители
+                </button>
               </div>
-            </ul>
-          </div>
+              <div *ngIf="showReplacements && det.id == selectedReplacemntId">
+                <p>Неоригинальные:</p>
+                <ul *ngFor="let repl of det.detailResponses">
+                  <div class="checkbox-li">
+                    <input class="form-control" [disabled]="isShouldBeDisables(repl.id, det.detailType)" [checked]="ifPresent(repl.id)"
+                      (input)="checkSelected($event, repl.id, det.detailType, repl.count)" type="number" min="0" onkeydown="return false;"
+                      [max]="calcMaximumInput(det.detailType, repl.id)" [value]="getValueInInput(repl.id)">
+                    <a class="list-group-item" (click)="toDetail(repl.id, $event)">
+                      {{ repl.name }} - {{ repl.count }} {{ repl.dimension }}
+                    </a>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </ul>
         </div>
-      </ul>
+      </div>
     </div>
-  </div>
-  <button *ngIf="detailIds.length > 0" class="get-time-btn btn btn-secondary" type="button" id="showChangeList" aria-haspopup="true"
-    aria-expanded="false" (click)="getTimetable()">Получить свободное время</button>
-    <app-timetable *ngIf="response" [response]="response"
-                                    [requestTime]="requestTime">
-    </app-timetable>
+  </ul>
+  <button *ngIf="buttonSendVisible()" class="get-time-btn btn btn-secondary" type="button" id="showChangeList"
+    aria-haspopup="true" aria-expanded="false" (click)="getTimetable()">Получить свободное время</button>
+  <app-timetable *ngIf="response" [response]="response" [requestTime]="requestTime">
+  </app-timetable>
 </div>

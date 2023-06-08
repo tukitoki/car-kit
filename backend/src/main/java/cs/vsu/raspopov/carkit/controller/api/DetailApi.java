@@ -4,6 +4,8 @@ import cs.vsu.raspopov.carkit.dto.detail.DetailAddResponse;
 import cs.vsu.raspopov.carkit.dto.detail.DetailDto;
 import cs.vsu.raspopov.carkit.dto.detail.DetailMileageDto;
 
+import java.util.List;
+
 public interface DetailApi {
 
     void saveDetail(DetailDto dto);
@@ -12,7 +14,7 @@ public interface DetailApi {
 
     DetailAddResponse showSaveDetail();
 
-    DetailMileageDto getDetailsByMileage(Integer mileage, Long carId);
+    List<DetailMileageDto> getDetailsByMileage(Integer mileage, Long carId);
 
     DetailDto getById(Long id);
 }

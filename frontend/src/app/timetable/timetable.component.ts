@@ -4,6 +4,7 @@ import { RequestTimeResponse } from '../entity/request/RequestTimeResponse';
 import { RequestTime } from '../entity/request/RequestTime';
 import { TimetableService } from '../service/timetable.service';
 import { RequestApplyResponse } from '../entity/request/RequestApplyResponse';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-timetable',
@@ -18,6 +19,7 @@ export class TimetableComponent {
   selected!: boolean;
   @Input() requestTime!: RequestTime;
   requestApply!: RequestApplyResponse;
+  telephone!: string;
 
   constructor(
     private router: Router,
@@ -51,13 +53,20 @@ export class TimetableComponent {
   }
 
   sendRequest() {
+    const phoneRegex = /^\+[1-9]\d{10}$/;
+    if (!phoneRegex.test(this.telephone)) {
+      Swal.fire("Неправильный формат телефона")
+      return
+    }
     this.requestApply = {
       requestTime: this.requestTime,
       date: this.selectedDate,
       startTime: this.selectedStartTime,
-      phoneNumber: ''
+      phoneNumber: this.telephone,
+      map: Object.fromEntries(this.requestTime.details)
     }
 
+    console.log(this.requestApply)
     this.timetableService.sendRequest(this.requestApply).subscribe({
       next: value => this.router.navigate([''])
     });

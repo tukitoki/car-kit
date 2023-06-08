@@ -45,7 +45,7 @@ export class MileageDetailsAddComponent implements OnInit {
   }
 
   addMileageDetail() {
-    this.detailsMileages.push({ detailType: this.addResponse.detailTypes[0], mileage: 0 })
+    this.detailsMileages.push({ detailType: this.addResponse.detailTypes[0], dimension:"", count:0, mileage: 0 })
     this.indexMileage += 1
     console.log(this.detailsMileages)
   }
