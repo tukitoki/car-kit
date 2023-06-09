@@ -12,6 +12,5 @@ import java.util.Map;
 public class RequestTime {
 
     private Long carId;
-    private Map<Integer, Integer> detailss;
     private Map<Long, Integer> details;
 }

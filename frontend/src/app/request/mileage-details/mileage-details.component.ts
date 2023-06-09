@@ -76,6 +76,8 @@ export class MileageDetailsComponent {
       if (element.detailType == type) {
         if (event.target.value == 0) {
           this.detailIdss.delete(id)
+          console.log(counter)
+          console.log(element.currentCount)
           element.currentCount -= counter
         } else {
           if (this.detailIdss.has(id)) {
@@ -92,6 +94,7 @@ export class MileageDetailsComponent {
           }
           this.detailIdss.set(id, event.target.value)
         }
+        element.currentCount = parseFloat(element.currentCount.toFixed(1))
         console.log(this.detailTypeCount)
       }
     });

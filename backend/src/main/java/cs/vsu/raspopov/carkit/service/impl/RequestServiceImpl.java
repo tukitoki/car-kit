@@ -123,10 +123,14 @@ public class RequestServiceImpl implements RequestService {
         Map<String, List<String>> times = new HashMap<>();
         var requests = requestRepo.findAll();
 
-        scheduleRepo.findAll().forEach(schedule -> {
+        for (var schedule : scheduleRepo.findAll()) {
             var availableTime = new ArrayList<LocalTime>();
             var todayRequests = new HashSet<Request>();
             var endTimeWork = LocalDateTime.of(schedule.getDate(), schedule.getEndWorkTime());
+
+            if (schedule.getDate().isBefore(LocalDate.now())) {
+                continue;
+            }
 
             requests.forEach(request -> {
                 var date = request.getStartTime().toLocalDate();
@@ -145,7 +149,8 @@ public class RequestServiceImpl implements RequestService {
                     continue;
                 }
                 LocalDateTime endTime = LocalDateTime.of(schedule.getDate(), fullTimeToChange);
-                if (isRightTime(todayRequests, startTime, endTime) && endTime.isBefore(endTimeWork)) {
+                if (isRightTime(todayRequests, startTime, endTime) && endTime.isBefore(endTimeWork)
+                        && startTime.isAfter(LocalDateTime.now())) {
                     availableTime.add(time);
                 }
             }
@@ -155,7 +160,7 @@ public class RequestServiceImpl implements RequestService {
                     .map(LocalTime::toString)
                     .toList();
             times.put(schedule.getDate().toString(), stringTime);
-        });
+        }
         return times;
     }
 

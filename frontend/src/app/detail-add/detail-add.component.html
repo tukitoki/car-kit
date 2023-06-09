@@ -8,7 +8,7 @@
         <option *ngFor="let dimension of detailAddResponse.dimensions" [ngValue]="dimension">{{ dimension }}</option>
       </select>
       <input [(ngModel)]="dimens" name="dimension" id="dimension" required>
-      <button class="btn btn-outline-secondary" type="button" (click)="createDimension()">Add dimension</button>
+      <button class="btn btn-outline-secondary" type="button" (click)="createDimension()">Добавить размерность</button>
     </div>
     <div class="dropdown" *ngIf="showedDetails && showedDetails.length > 0">
       <button class="drop-btn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -68,5 +68,5 @@
       <input [(ngModel)]="detail.price" class="form-control" name="price" id="price" required>
     </div>
   </div>
-  <button class="save-detail btn btn-outline-secondary" type="button" (click)="saveDetail()">Add detail</button>
+  <button class="save-detail btn btn-outline-secondary" type="button" (click)="saveDetail()">Добавить деталь</button>
 </div>
